@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 // import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Chat from "./components/Chat"; // Import the Chat component
+
 export default function Home() {
   // const router = useRouter();
 
@@ -36,13 +38,15 @@ export default function Home() {
     return "LOG IN";
   };
 
-  const handleLost = () => {
+  const handleLost = useCallback(() => {
     setAction("lost");
-  };
+  }, []);
 
-  const handleFound = () => {
+  const handleFound = useCallback(() => {
     setAction("found");
-  };
+  }, []);
+
+  console.log({ action });
 
   return (
     <div className="flex h-screen w-screen overflow-hidden">
@@ -61,8 +65,8 @@ export default function Home() {
         </span>
         {action === "lost" && (
           <motion.div className="absolute top-0 left-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-red-400">
-            <div className="rounded-2xl flex h-3/4 w-2/3  bg-amber-50 justify-center items-center">
-              HI
+            <div className="rounded-2xl flex h-3/4 w-2/3 bg-amber-50 justify-center items-center">
+              <Chat flow="lost" />
             </div>
           </motion.div>
         )}
@@ -101,9 +105,9 @@ export default function Home() {
           I FOUND SOMETHING
         </span>
         {action === "found" && (
-          <motion.div className="absolute top-0 right-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center  bg-blue-500">
-            <div className="rounded-2xl flex h-3/4 w-2/3  bg-amber-50 justify-center items-center">
-              HI
+          <motion.div className="absolute top-0 right-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-blue-500">
+            <div className="rounded-2xl flex h-3/4 w-2/3 bg-amber-50 justify-center items-center">
+              <Chat flow="found" />
             </div>
           </motion.div>
         )}
