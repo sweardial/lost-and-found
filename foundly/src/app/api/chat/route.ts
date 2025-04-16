@@ -1,4 +1,3 @@
-// app/api/chat/route.js
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -10,31 +9,21 @@ const ASSISTANT_ID = process.env.ASSISTANT_ID;
 
 export async function POST(request: any) {
   try {
-    const { message, sessionId, context } = await request.json();
-
-    console.log({ context });
+    const { message, context } = await request.json();
 
     const threadId =
       context?.threadId || (await openai.beta.threads.create()).id;
-
-    console.log({ threadId });
 
     // Process with AI
     const aiResponse = await processWithOpenAI(message, threadId);
 
     return NextResponse.json({
       message: aiResponse.message,
-      nextAction: aiResponse.nextAction,
-      extractedData: aiResponse.extractedData,
-      sessionId: sessionId,
+      step: aiResponse.step,
       context: {
         ...context,
         threadId,
         lastMessage: message,
-        extractedInfo: {
-          ...(context?.extractedInfo || {}),
-          ...aiResponse.extractedData,
-        },
       },
     });
   } catch (error) {
@@ -44,16 +33,6 @@ export async function POST(request: any) {
       { status: 500 }
     );
   }
-}
-
-interface AssistantResponse {
-  currentStage: "WHAT" | string;
-  currentMessage: string;
-  itemDescription: string;
-  pictureRequested: boolean;
-  date: string;
-  location: string;
-  complete: boolean;
 }
 
 async function processWithOpenAI(
@@ -82,18 +61,17 @@ async function processWithOpenAI(
     runStatus = runResult.status;
   }
 
-  // 5. Get the messages from the thread
   const messages = await openai.beta.threads.messages.list(threadId);
 
   const lastMessage = messages.data.find((msg) => msg.role === "assistant");
 
-  console.log({ lastMessage: lastMessage?.content[0].text.value });
-
   // Parse the response content
-  let responseContent: string | null;
+  let responseContent: { message: string; step: string } | null;
   try {
-    //@ts-expect-error for some reason text is not in openai type
-    const contentText = lastMessage?.content[0].text.value;
+    const contentText = JSON.parse(lastMessage?.content[0].text.value) as {
+      message: string;
+      step: string;
+    };
     responseContent = contentText || null;
   } catch (error) {
     console.error("Error parsing assistant response:", error);
@@ -101,8 +79,7 @@ async function processWithOpenAI(
   }
 
   return {
-    message: responseContent || "No response from assistant.",
-    nextAction: "continue",
-    // extractedData: responseContent || {},
+    message: responseContent?.message || "Sorry, I couldn't understand that.",
+    step: responseContent?.step || "",
   };
 }

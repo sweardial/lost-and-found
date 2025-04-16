@@ -1,54 +1,41 @@
 "use client";
 
-import { extractJsonFromMessage } from "@/utils/jsonUtils";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// Define the stages
-const STAGES = {
-  WHAT: "WHAT",
-  WHEN: "WHEN",
-  WHERE: "WHERE",
-  COMPLETE: "COMPLETE",
-};
-
-// Define the item data structure
-const initialItemData = {
-  currentStage: STAGES.WHAT,
-  itemDescription: "",
-  pictureRequested: false,
-  pictures: [],
-  date: "",
-  location: "",
-  complete: false,
-};
+enum STAGES {
+  WHAT = "WHAT",
+  WHEN = "WHEN",
+  WHERE = "WHERE",
+  CONFIRM = "CONFIRM",
+  COMPLETE = "COMPLETE",
+}
 
 type message = {
   role: string;
   content: string;
-  jsonData?: any;
 };
 
 export default function Chat({ flow }: { flow: "lost" | "found" }) {
   const isInitialized = useRef(false);
-  const fileInputRef = useRef<any>(null);
   const messagesEndRef = useRef<any>(null);
 
-  const [{ messages, input, threadId, isLoading, itemData }, setChatState] =
+  const [{ messages, input, threadId, isLoading, currentStep }, setChatState] =
     useState<{
       messages: message[];
       input: string;
       threadId: string | null;
       isLoading: boolean;
-      itemData: any;
+      currentStep: STAGES | null;
     }>({
       messages: [],
       input: "",
       threadId: null,
       isLoading: false,
-      itemData: initialItemData,
+      currentStep: null,
     });
 
   useEffect(() => {
+    //to prevent double rendering due to React.Strict Mode
     if (isInitialized.current) {
       return;
     }
@@ -81,10 +68,13 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
 
         const data = await response.json();
 
+        console.log({ data });
+
         setChatState((prev) => ({
           ...prev,
           threadId: data.context.threadId,
           isLoading: false,
+          currentStep: data.step,
           messages: [
             ...prev.messages,
             { role: "assistant", content: data.message },
@@ -137,18 +127,17 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
       if (!response.ok) throw new Error("Failed to send message");
 
       const data = await response.json();
-      const { jsonData, cleanMessage } = extractJsonFromMessage(data.message);
 
       const aiMessage = {
         role: "assistant",
-        content: cleanMessage,
-        jsonData,
+        content: data.message,
       };
 
       setChatState((prev) => ({
         ...prev,
         isLoading: false,
         messages: [...prev.messages, aiMessage],
+        currentStep: data.step,
       }));
     } catch (error) {
       console.error("Error sending message:", error);
@@ -174,36 +163,43 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
     }
   };
 
-  // const renderProgress = () => {
-  //   const stages = [STAGES.WHAT, STAGES.WHEN, STAGES.WHERE];
-  //   const currentIndex = stages.indexOf(itemData.currentStage);
+  const renderProgress = () => {
+    const stages = [
+      STAGES.WHAT,
+      STAGES.WHERE,
+      STAGES.WHEN,
+      STAGES.CONFIRM,
+      STAGES.COMPLETE,
+    ];
 
-  //   return (
-  //     <div className="flex justify-between px-4 py-2 bg-amber-100">
-  //       {stages.map((stage, index) => (
-  //         <div
-  //           key={stage}
-  //           className={`flex flex-col items-center ${
-  //             index <= currentIndex ? "text-amber-800" : "text-gray-400"
-  //           }`}
-  //         >
-  //           <div
-  //             className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-  //               index < currentIndex
-  //                 ? "bg-green-500 text-white"
-  //                 : index === currentIndex
-  //                 ? "bg-amber-500 text-white"
-  //                 : "bg-gray-200 text-gray-500"
-  //             }`}
-  //           >
-  //             {index + 1}
-  //           </div>
-  //           <span className="text-xs mt-1">{stage}</span>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // };
+    const currentIndex = stages.indexOf(currentStep || STAGES.WHAT);
+
+    return (
+      <div className="flex justify-between px-4 py-2 bg-amber-100">
+        {stages.map((step, index) => (
+          <div
+            key={step}
+            className={`flex flex-col items-center ${
+              index <= currentIndex ? "text-amber-800" : "text-gray-400"
+            }`}
+          >
+            <div
+              className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
+                index < currentIndex || currentIndex == stages.length - 1
+                  ? "bg-green-500 text-white"
+                  : index === currentIndex
+                  ? "bg-amber-500 text-white"
+                  : "bg-gray-200 text-gray-500"
+              }`}
+            >
+              {index + 1}
+            </div>
+            <span className="text-xs mt-1">{step}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col h-full w-full bg-white rounded-2xl overflow-hidden">
@@ -214,7 +210,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
       </div>
 
       {/* Progress indicator */}
-      {/* {renderProgress()} */}
+      {renderProgress()}
 
       {/* Messages area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -232,17 +228,6 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
                   : "bg-blue-500 text-white"
               }`}
             >
-              {/* {message.isImage && message.imageUrl && (
-                <div className="mb-2">
-                  <Image
-                    src={message.imageUrl}
-                    width={200}
-                    height={200}
-                    alt="Uploaded"
-                    className="rounded-md object-contain"
-                  />
-                </div>
-              )} */}
               <p className="whitespace-pre-line">{message.content}</p>
             </div>
           </div>
@@ -264,28 +249,6 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
       {/* Input area */}
       <div className="border-t p-4">
         <div className="flex space-x-2">
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={
-              !itemData.pictureRequested &&
-              itemData.currentStage !== STAGES.WHAT
-            }
-            className="p-2 bg-amber-300 text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
-            title={
-              itemData.pictureRequested
-                ? "Upload image"
-                : "Image upload available during WHAT stage"
-            }
-          >
-            📷
-          </button>
-          {/* <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-          /> */}
           <textarea
             value={input}
             onChange={(e) =>
@@ -296,7 +259,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
             maxLength={100}
             className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-amber-300 placeholder:text-gray-400 text-gray-800"
             rows={1}
-            disabled={itemData.complete}
+            disabled={currentStep === STAGES.COMPLETE}
           />
 
           <div className="flex justify-center items-center space-x-2">
@@ -304,7 +267,11 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
 
             <button
               onClick={sendMessage}
-              disabled={isLoading || input.trim() === "" || itemData.complete}
+              disabled={
+                isLoading ||
+                input.trim() === "" ||
+                currentStep === STAGES.COMPLETE
+              }
               className="p-2 bg-amber-300 text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
             >
               ➤
