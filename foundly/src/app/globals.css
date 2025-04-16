@@ -5,6 +5,19 @@
   --foreground: #171717;
 }
 
+@theme {
+  --color-mtaBlue: #0039A6;
+  --color-mtaRedLine: #ef3f42;
+  --color-mtaOrangeLine: #f4811f;
+  --color-mtaYellowLine: #fed41e;
+  --color-mtaGreenLine: #009c57;
+  --color-mtaLightGreenLine: #7cc142;
+  --color-mtaBlueLine: #066ab5;
+  --color-mtaPurpleLine: #9c3d96;
+  --color-mtaBrownLine: #af732a;
+  --color-mtaGreyLine: #949599;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

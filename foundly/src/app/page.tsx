@@ -1,5 +1,6 @@
 "use client";
 
+
 import { motion } from "framer-motion";
 // import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -35,7 +36,7 @@ export default function Home() {
       return <ArrowForwardIcon className="text-black ml-15" />;
     }
 
-    return "LOG IN";
+    return <h1 className="text-black font-bold text-3xl">LOGIN</h1>;
   };
 
   const handleLost = useCallback(() => {
@@ -46,12 +47,10 @@ export default function Home() {
     setAction("found");
   }, []);
 
-  console.log({ action });
-
   return (
     <div className="flex h-screen w-screen overflow-hidden">
       <motion.div
-        className="flex flex-1 flex-row items-center justify-center bg-red-400 group cursor-pointer relative"
+        className="flex flex-1 flex-row items-center justify-center bg-white group cursor-pointer relative"
         onClick={handleLost}
         animate={
           action === "lost"
@@ -61,10 +60,10 @@ export default function Home() {
         transition={{ duration: 0.6 }}
       >
         <span className="transform transition-transform duration-300 group-hover:scale-200 text-black text-1xl font-bold pr-8 border-l-0">
-          I LOST SOMETHING
+          LOST
         </span>
         {action === "lost" && (
-          <motion.div className="absolute top-0 left-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-red-400">
+          <motion.div className="absolute top-0 left-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-mtaYellowLine">
             <div className="rounded-2xl flex h-3/4 w-2/3 bg-amber-50 justify-center items-center">
               <Chat flow="lost" />
             </div>
@@ -85,7 +84,7 @@ export default function Home() {
       >
         <div
           onClick={handleLogin}
-          className="cursor-pointer flex justify-center items-center border-zinc-900 border-2 rounded-full h-40 w-40 bg-amber-300 hover:bg-amber-500"
+          className="cursor-pointer flex justify-center items-center border-zinc-900 border-2 rounded-full h-40 w-40 bg-mtaYellowLine hover:bg-mtaOrangeLine"
         >
           {actionButtonText()}
         </div>
@@ -93,7 +92,7 @@ export default function Home() {
 
       <motion.div
         onClick={handleFound}
-        className="cursor-pointer flex flex-row flex-1 items-center justify-center bg-blue-500 group"
+        className="cursor-pointer flex flex-row flex-1 items-center justify-center bg-mtaBlue group"
         animate={
           action === "found"
             ? { width: "50%", x: "-100%" }
@@ -102,10 +101,10 @@ export default function Home() {
         transition={{ duration: 0.6 }}
       >
         <span className="transform transition-transform duration-300 group-hover:scale-200 text-black text-1xl font-bold">
-          I FOUND SOMETHING
+          FOUND
         </span>
         {action === "found" && (
-          <motion.div className="absolute top-0 right-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-blue-500">
+          <motion.div className="absolute top-0 right-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-mtaYellowLine">
             <div className="rounded-2xl flex h-3/4 w-2/3 bg-amber-50 justify-center items-center">
               <Chat flow="found" />
             </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from "react";
 
 enum STAGES {
@@ -175,20 +176,20 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
     const currentIndex = stages.indexOf(currentStep || STAGES.WHAT);
 
     return (
-      <div className="flex justify-between px-4 py-2 bg-amber-100">
+      <div className="flex justify-between px-4 py-2 bg-gray-100">
         {stages.map((step, index) => (
           <div
             key={step}
             className={`flex flex-col items-center ${
-              index <= currentIndex ? "text-amber-800" : "text-gray-400"
+              index <= currentIndex ? "text-mtaBlueLine" : "text-gray-400"
             }`}
           >
             <div
               className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
                 index < currentIndex || currentIndex == stages.length - 1
-                  ? "bg-green-500 text-white"
+                  ? "bg-mtaGreenLine text-white"
                   : index === currentIndex
-                  ? "bg-amber-500 text-white"
+                  ? "bg-mtaBlueLine text-white"
                   : "bg-gray-200 text-gray-500"
               }`}
             >
@@ -203,10 +204,14 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
 
   return (
     <div className="flex flex-col h-full w-full bg-white rounded-2xl overflow-hidden">
-      <div className="bg-amber-300 p-4 border-b">
-        <h2 className="text-lg text-black font-semibold">
-          {flow === "lost" ? "Report a Lost Item" : "Report a Found Item"}
-        </h2>
+      <div className="bg-mtaGreenLine p-4 border-b flex justify-center items-center">
+        <Image 
+          src="/mta_logo.png"
+          alt="MTA Logo"
+          width={25}
+          height={25}
+          priority
+        />
       </div>
 
       {/* Progress indicator */}
@@ -257,7 +262,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
             onKeyDown={handleKeyPress}
             placeholder="Type a message..."
             maxLength={100}
-            className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-amber-300 placeholder:text-gray-400 text-gray-800"
+            className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-mtaGreenLine placeholder:text-gray-400 text-gray-800"
             rows={1}
             disabled={currentStep === STAGES.COMPLETE}
           />
@@ -272,7 +277,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
                 input.trim() === "" ||
                 currentStep === STAGES.COMPLETE
               }
-              className="p-2 bg-amber-300 text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
+              className="p-2 bg-mtaGreenLine text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
             >
               ➤
             </button>
