@@ -1,6 +1,5 @@
 "use client";
 
-
 import { motion } from "framer-motion";
 // import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -48,7 +47,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden">
+    <div className="flex h-screen w-screen overflow-hidden bg-mtaYellowLine">
       <motion.div
         className="flex flex-1 flex-row items-center justify-center bg-white group cursor-pointer relative"
         onClick={handleLost}
@@ -57,7 +56,7 @@ export default function Home() {
             ? { width: "50%", x: "100%" }
             : { width: "50%", x: 0 }
         }
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
       >
         <span className="transform transition-transform duration-300 group-hover:scale-200 text-mtaBlue text-1xl font-bold pr-8 border-l-0">
           LOST
@@ -80,7 +79,7 @@ export default function Home() {
             ? { x: "-50vw" }
             : { x: 0 }
         }
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
       >
         <div
           onClick={handleLogin}
@@ -98,7 +97,7 @@ export default function Home() {
             ? { width: "50%", x: "-100%" }
             : { width: "50%", x: 0 }
         }
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
       >
         <span className="transform transition-transform duration-300 group-hover:scale-200 text-white text-1xl font-bold">
           FOUND

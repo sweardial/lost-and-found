@@ -1,15 +1,6 @@
 // hooks/useChat.ts
 import { useCallback, useEffect, useRef, useState } from "react";
-
-export enum STAGES {
-  WHAT = "WHAT",
-  WHEN = "WHEN",
-  WHERE = "WHERE",
-  CONFIRM = "CONFIRM",
-  EMAIL = "EMAIL",
-  COMPLETE = "COMPLETE",
-
-}
+import { STEPS } from "../lib/constants";
 
 export type Message = {
   role: string;
@@ -21,13 +12,12 @@ export type ChatState = {
   input: string;
   threadId: string | null;
   isLoading: boolean;
-  currentStep: STAGES | null;
+  currentStep: STEPS | null;
   inappropriateCounter: number;
 };
 
 export function useChat(flow: "lost" | "found") {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const pendingThreadId = useRef<string | null>(null);
 
   const [chatState, setChatState] = useState<ChatState>({
     messages: [],
@@ -41,51 +31,18 @@ export function useChat(flow: "lost" | "found") {
   const { messages, input, threadId } = chatState;
 
   useEffect(() => {
-    let didUnmount = false;
-
     const init = async () => {
-      const data = await callChatAPI(`Initialize ${flow} item report`);
-      const id = data.context.threadId;
-      pendingThreadId.current = id;
-
-      if (didUnmount && id) {
-        cancelThread(id);
-        pendingThreadId.current = null;
-      }
+      await callChatAPI(`Initialize ${flow} item report`);
     };
-
+    //threads should not  be deleted not cancelled.
     init();
-
-    return () => {
-      didUnmount = true;
-      if (pendingThreadId.current) {
-        cancelThread(pendingThreadId.current);
-        pendingThreadId.current = null;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flow]);
+  }, []);
 
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-
-  const cancelThread = async (id: string) => {
-    try {
-      await fetch("/api/cancel-thread", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ threadId: id }),
-      });
-      console.log("Thread cancelled successfully");
-    } catch (error) {
-      console.error("Error cancelling thread:", error);
-    }
-  };
-
-  //   const validateUserInput = useCallback(async (message: string) => {}, []);
 
   const callChatAPI = useCallback(
     async (message: string, userMessage?: Message) => {

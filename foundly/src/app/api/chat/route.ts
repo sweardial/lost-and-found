@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { openai, ASSISTANT_ID } from "../../lib/openai";
+import { openai } from "../../lib/openai";
+import { createOrion } from "../../lib/assistants/assistant";
+import { validateUserItemDescription } from "../../lib/assistants/validations";
 
 export async function POST(request: Request) {
   try {
@@ -55,44 +57,99 @@ async function processWithOpenAI(
     content: message,
   });
 
-  const run = await openai.beta.threads.runs.create(threadId, {
-    assistant_id: ASSISTANT_ID || "default_assistant",
+  const assistant = await createOrion({});
+
+  let run = await openai.beta.threads.runs.create(threadId, {
+    assistant_id: assistant.id,
   });
 
-  let runStatus = run.status;
-  let runResult;
-
   while (
-    runStatus !== "completed" &&
-    runStatus !== "failed" &&
-    runStatus !== "cancelled"
+    run.status !== "completed" &&
+    run.status !== "requires_action" &&
+    run.status !== "failed" &&
+    run.status !== "cancelled"
   ) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    runResult = await openai.beta.threads.runs.retrieve(threadId, run.id);
-    runStatus = runResult.status;
+    run = await openai.beta.threads.runs.retrieve(threadId, run.id);
   }
 
-  const messages = await openai.beta.threads.messages.list(threadId);
-
-  const lastMessage = messages.data.find((msg) => msg.role === "assistant");
-
-  let responseContent: { message: string; step: string } | null;
-  try {
-    //@ts-expect-error type is not defined
-    const contentText = JSON.parse(lastMessage?.content[0].text.value) as {
-      message: string;
-      step: string;
-    };
-    responseContent = contentText || null;
-  } catch (error) {
-    console.error("Error parsing assistant response:", error);
-    responseContent = null;
-  }
-
-  console.log({ responseContent });
+  const messages = await handleRunStatus(run, threadId);
 
   return {
-    message: responseContent?.message || "Sorry, I couldn't understand that.",
-    step: responseContent?.step || "",
+    message: "Sorry, I couldn't understand that.",
+    step: "",
   };
+
+  // const lastMessage = messages.data.find((msg) => msg.role === "assistant");
+
+  // let responseContent: { message: string; step: string } | null;
+  // try {
+  //   //@ts-expect-error type is not defined
+  //   const contentText = JSON.parse(lastMessage?.content[0].text.value) as {
+  //     message: string;
+  //     step: string;
+  //   };
+  //   responseContent = contentText || null;
+  // } catch (error) {
+  //   console.error("Error parsing assistant response:", error);
+  //   responseContent = null;
+  // }
+
+  // console.log({ responseContent });
+
+  // return {
+  //   message: responseContent?.message || "Sorry, I couldn't understand that.",
+  //   step: responseContent?.step || "",
+  // };
 }
+
+const handleRequiresAction = async (run, treadId) => {
+  if (
+    run.required_action &&
+    run.required_action.submit_tool_outputs &&
+    run.required_action.submit_tool_outputs.tool_calls
+  ) {
+    const toolOutputs = run.required_action.submit_tool_outputs.tool_calls.map(
+      (tool) => {
+        if (tool.function.name === "validateUserItemDescription") {
+          return {
+            tool_call_id: tool.id,
+            output: JSON.stringify(
+              validateUserItemDescription(
+                JSON.parse(tool.function.arguments).userInput
+              )
+            ),
+          };
+        }
+      }
+    );
+
+    // Submit all tool outputs at once after collecting them in a list
+    if (toolOutputs.length > 0) {
+      run = await openai.beta.threads.runs.submitToolOutputsAndPoll(
+        treadId,
+        run.id,
+        { tool_outputs: toolOutputs }
+      );
+      console.log("Tool outputs submitted successfully.");
+    } else {
+      console.log("No tool outputs to submit.");
+    }
+
+    // Check status after submitting tool outputs
+    return handleRunStatus(run, treadId);
+  }
+};
+
+const handleRunStatus = async (run, treadId) => {
+  if (run.status === "completed") {
+    console.log("STATUS COMPLETED");
+    const messages = await openai.beta.threads.messages.list(treadId);
+    return messages.data;
+  } else if (run.status === "requires_action") {
+    console.log("REQUIRED ACTION", run);
+    return await handleRequiresAction(run, treadId);
+  } else {
+    console.error("Run did not complete:", run);
+  }
+};

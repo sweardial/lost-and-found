@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useChat, STAGES } from "../hooks/useChat";
+import { useChat } from "../hooks/useChat";
+import { STEPS } from "../lib/constants";
 
 export default function Chat({ flow }: { flow: "lost" | "found" }) {
   const {
@@ -19,20 +20,20 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
   } = useChat(flow);
 
   const renderProgress = () => {
-    const stages = [
-      STAGES.WHAT,
-      STAGES.WHERE,
-      STAGES.WHEN,
-      STAGES.CONFIRM,
-      STAGES.EMAIL,
-      STAGES.COMPLETE,
+    const steps = [
+      STEPS.WHAT,
+      STEPS.WHERE,
+      STEPS.WHEN,
+      STEPS.CONFIRM,
+      STEPS.EMAIL,
+      STEPS.COMPLETE,
     ];
 
-    const currentIndex = stages.indexOf(currentStep || STAGES.WHAT);
+    const currentIndex = steps.indexOf(currentStep || STEPS.WHAT);
 
     return (
       <div className="flex justify-between px-4 py-2 bg-gray-100">
-        {stages.map((step, index) => (
+        {steps.map((step, index) => (
           <div
             key={step}
             className={`flex flex-col items-center ${
@@ -41,7 +42,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
           >
             <div
               className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                index < currentIndex || currentIndex == stages.length - 1
+                index < currentIndex || currentIndex == steps.length - 1
                   ? "bg-mtaGreenLine text-white"
                   : index === currentIndex
                   ? "bg-mtaBlueLine text-white"
@@ -66,6 +67,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
       </div>
     );
   }
+
   return (
     <div className="flex flex-col h-full w-full bg-white rounded-2xl overflow-hidden">
       <div className="bg-mtaGreenLine p-4 border-b flex justify-center items-center">
@@ -126,7 +128,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
             maxLength={100}
             className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-mtaGreenLine placeholder:text-gray-400 text-gray-800"
             rows={1}
-            disabled={currentStep === STAGES.COMPLETE}
+            disabled={currentStep === STEPS.COMPLETE}
           />
 
           <div className="flex justify-center items-center space-x-2">
@@ -137,7 +139,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
               disabled={
                 isLoading ||
                 input.trim() === "" ||
-                currentStep === STAGES.COMPLETE
+                currentStep === STEPS.COMPLETE
               }
               className="p-2 bg-mtaGreenLine text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
             >
