@@ -6,7 +6,9 @@ export enum STAGES {
   WHEN = "WHEN",
   WHERE = "WHERE",
   CONFIRM = "CONFIRM",
+  EMAIL = "EMAIL",
   COMPLETE = "COMPLETE",
+
 }
 
 export type Message = {

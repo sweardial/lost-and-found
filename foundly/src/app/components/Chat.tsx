@@ -24,6 +24,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
       STAGES.WHERE,
       STAGES.WHEN,
       STAGES.CONFIRM,
+      STAGES.EMAIL,
       STAGES.COMPLETE,
     ];
 

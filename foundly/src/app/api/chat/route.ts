@@ -89,6 +89,8 @@ async function processWithOpenAI(
     responseContent = null;
   }
 
+  console.log({ responseContent });
+
   return {
     message: responseContent?.message || "Sorry, I couldn't understand that.",
     step: responseContent?.step || "",
