@@ -1,168 +1,22 @@
 "use client";
 
-import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from "react";
-
-enum STAGES {
-  WHAT = "WHAT",
-  WHEN = "WHEN",
-  WHERE = "WHERE",
-  CONFIRM = "CONFIRM",
-  COMPLETE = "COMPLETE",
-}
-
-type message = {
-  role: string;
-  content: string;
-};
+import Image from "next/image";
+import { useChat, STAGES } from "../hooks/useChat";
 
 export default function Chat({ flow }: { flow: "lost" | "found" }) {
-  const isInitialized = useRef(false);
-  const messagesEndRef = useRef<any>(null);
-
-  const [{ messages, input, threadId, isLoading, currentStep }, setChatState] =
-    useState<{
-      messages: message[];
-      input: string;
-      threadId: string | null;
-      isLoading: boolean;
-      currentStep: STAGES | null;
-    }>({
-      messages: [],
-      input: "",
-      threadId: null,
-      isLoading: false,
-      currentStep: null,
-    });
-
-  useEffect(() => {
-    //to prevent double rendering due to React.Strict Mode
-    if (isInitialized.current) {
-      return;
-    }
-    isInitialized.current = true;
-    initializeChat();
-  }, []);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const initializeChat = useCallback(() => {
-    setChatState((prev) => ({
-      ...prev,
-      isLoading: true,
-    }));
-
-    const initialization = async () => {
-      try {
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: `Initialize ${flow} item report`,
-            context: { flow },
-          }),
-        });
-
-        if (!response.ok) throw new Error("Failed to initiate chat");
-
-        const data = await response.json();
-
-        console.log({ data });
-
-        setChatState((prev) => ({
-          ...prev,
-          threadId: data.context.threadId,
-          isLoading: false,
-          currentStep: data.step,
-          messages: [
-            ...prev.messages,
-            { role: "assistant", content: data.message },
-          ],
-        }));
-      } catch (error) {
-        console.error("Error initiating chat:", error);
-        setChatState((prev) => ({
-          ...prev,
-          isLoading: false,
-          messages: [
-            ...prev.messages,
-            {
-              role: "assistant",
-              content:
-                "Sorry, I'm having trouble connecting. Please try again later.",
-            },
-          ],
-        }));
-      }
-    };
-
-    initialization();
-  }, []);
-
-  const sendMessage = async () => {
-    if (input.trim() === "") return;
-
-    const userMessage = { role: "user", content: input };
-    setChatState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, userMessage],
-      input: "",
-      isLoading: true,
-    }));
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input,
-          context: {
-            flow,
-            threadId,
-          },
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to send message");
-
-      const data = await response.json();
-
-      const aiMessage = {
-        role: "assistant",
-        content: data.message,
-      };
-
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        messages: [...prev.messages, aiMessage],
-        currentStep: data.step,
-      }));
-    } catch (error) {
-      console.error("Error sending message:", error);
-
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        messages: [
-          ...prev.messages,
-          {
-            role: "assistant",
-            content: "Sorry, I'm having trouble connecting. Please try again.",
-          },
-        ],
-      }));
-    }
-  };
-
-  const handleKeyPress = (e: any) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+  const {
+    chatState: {
+      messages,
+      input,
+      isLoading,
+      currentStep,
+      inappropriateCounter,
+    },
+    messagesEndRef,
+    sendMessage,
+    updateInput,
+    handleKeyPress,
+  } = useChat(flow);
 
   const renderProgress = () => {
     const stages = [
@@ -202,10 +56,19 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
     );
   };
 
+  //TODO: add proper handling of abusive request
+
+  if (inappropriateCounter > 2) {
+    return (
+      <div className="flex justify-center items-center px-4 py-2  text-black font-bold text-4xl">
+        GOODBYE
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col h-full w-full bg-white rounded-2xl overflow-hidden">
       <div className="bg-mtaGreenLine p-4 border-b flex justify-center items-center">
-        <Image 
+        <Image
           src="/mta_logo.png"
           alt="MTA Logo"
           width={25}
@@ -256,9 +119,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
         <div className="flex space-x-2">
           <textarea
             value={input}
-            onChange={(e) =>
-              setChatState((prev) => ({ ...prev, input: e.target.value }))
-            }
+            onChange={(e) => updateInput(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="Type a message..."
             maxLength={100}
@@ -268,7 +129,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
           />
 
           <div className="flex justify-center items-center space-x-2">
-            <div className=" text-gray-400">{input.length}/100</div>
+            <div className="text-gray-400">{input.length}/100</div>
 
             <button
               onClick={sendMessage}

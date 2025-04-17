@@ -1,25 +1,19 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { openai, ASSISTANT_ID } from "../../lib/openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const ASSISTANT_ID = process.env.ASSISTANT_ID;
-
-export async function POST(request: any) {
+export async function POST(request: Request) {
   try {
     const { message, context } = await request.json();
 
     const threadId =
       context?.threadId || (await openai.beta.threads.create()).id;
 
-    // Process with AI
     const aiResponse = await processWithOpenAI(message, threadId);
 
     return NextResponse.json({
       message: aiResponse.message,
       step: aiResponse.step,
+      isInappropriate: aiResponse.isInappropriate,
       context: {
         ...context,
         threadId,
@@ -35,10 +29,27 @@ export async function POST(request: any) {
   }
 }
 
+async function moderationCheckWithOpenAI(message: string): Promise<boolean> {
+  const response = await openai.moderations.create({
+    model: "omni-moderation-latest",
+    input: message,
+  });
+
+  const flagged = response.results.some((result) => result.flagged);
+
+  return flagged;
+}
+
 async function processWithOpenAI(
   message: string,
   threadId: string
-): Promise<any> {
+): Promise<{ message: string; step: string; isInappropriate?: boolean }> {
+  const isFlagged = await moderationCheckWithOpenAI(message);
+
+  if (isFlagged) {
+    return { message: "Behave!", step: "", isInappropriate: true };
+  }
+
   await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: message,
@@ -48,9 +59,9 @@ async function processWithOpenAI(
     assistant_id: ASSISTANT_ID || "default_assistant",
   });
 
-  // 4. Poll until the run is complete
   let runStatus = run.status;
   let runResult;
+
   while (
     runStatus !== "completed" &&
     runStatus !== "failed" &&
@@ -65,9 +76,9 @@ async function processWithOpenAI(
 
   const lastMessage = messages.data.find((msg) => msg.role === "assistant");
 
-  // Parse the response content
   let responseContent: { message: string; step: string } | null;
   try {
+    //@ts-expect-error type is not defined
     const contentText = JSON.parse(lastMessage?.content[0].text.value) as {
       message: string;
       step: string;

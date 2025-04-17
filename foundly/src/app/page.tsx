@@ -59,7 +59,7 @@ export default function Home() {
         }
         transition={{ duration: 0.6 }}
       >
-        <span className="transform transition-transform duration-300 group-hover:scale-200 text-black text-1xl font-bold pr-8 border-l-0">
+        <span className="transform transition-transform duration-300 group-hover:scale-200 text-mtaBlue text-1xl font-bold pr-8 border-l-0">
           LOST
         </span>
         {action === "lost" && (
@@ -100,7 +100,7 @@ export default function Home() {
         }
         transition={{ duration: 0.6 }}
       >
-        <span className="transform transition-transform duration-300 group-hover:scale-200 text-black text-1xl font-bold">
+        <span className="transform transition-transform duration-300 group-hover:scale-200 text-white text-1xl font-bold">
           FOUND
         </span>
         {action === "found" && (
