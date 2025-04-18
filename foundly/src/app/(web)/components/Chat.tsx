@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useChat } from "../hooks/useChat";
-import { STEPS } from "@/app/lib/constants";
+import { STEPS } from "@/lib/constants";
 
 export default function Chat({ flow }: { flow: "lost" | "found" }) {
   const {

@@ -1,9 +1,26 @@
-import { openai } from "@/app/lib/openai";
+import OpenAI from "openai";
 
-export const getOpenAIAssistant = (params: unknown) => {};
+export const ORION_TOOLS: Array<OpenAI.Beta.AssistantTool> = [
+  {
+    type: "function",
+    function: {
+      name: "validateUserItemDescription",
+      description: "Validate the description of an item provided by user.",
+      parameters: {
+        type: "object",
+        properties: {
+          userInput: {
+            type: "string",
+            description: "The user's input describing the item",
+          },
+        },
+        required: ["userInput"],
+      },
+    },
+  },
+];
 
-export const createOrion = async (params: unknown) => {
-  const instruction = `
+export const ORION_PROMPT = ` 
     You're an assistant responsible for helping user submit their application for a lost item in NYC subway system.
 
     Your task is to follow structured steps:
@@ -23,33 +40,6 @@ export const createOrion = async (params: unknown) => {
         - If status is "valid", proceed to the next step
         - If status is "vague", ask user to provide more details about the item
         - If status is "unrealistic", ask user to provide a realistic description of the item.
-    `;
+`;
 
-  const assistant = await openai.beta.assistants.create({
-    name: "Orion",
-    instructions: instruction,
-    temperature: 0.1,
-    tools: [
-      {
-        type: "function",
-        function: {
-          name: "validateUserItemDescription",
-          description: "Validate the description of an item provided by user.",
-          parameters: {
-            type: "object",
-            properties: {
-              userInput: {
-                type: "string",
-                description: "The user's input describing the item",
-              },
-            },
-            required: ["userInput"],
-          },
-        },
-      },
-    ],
-    model: "gpt-4.1-nano",
-  });
-
-  return assistant;
-};
+export const ORION_MODEL = "gpt-4.1-nano";

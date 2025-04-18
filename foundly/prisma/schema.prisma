@@ -39,10 +39,13 @@ model User {
 }
 
 model Assistant {
-  id      String  @id @unique
-  name    String
-  flow    Flow
-  version Decimal
+  id               String  @id @unique
+  name             String
+  flow             Flow
+  isCurrentVersion Boolean 
+  version          Decimal
+
+  @@unique([flow, isCurrentVersion], name: "unique_current_version_per_flow", map: "unique_current_version_per_flow_where_true")
 }
 
 model Item {

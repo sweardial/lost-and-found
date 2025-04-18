@@ -2178,6 +2178,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     flow: $Enums.Flow | null
+    isCurrentVersion: boolean | null
     version: Decimal | null
   }
 
@@ -2185,6 +2186,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     flow: $Enums.Flow | null
+    isCurrentVersion: boolean | null
     version: Decimal | null
   }
 
@@ -2192,6 +2194,7 @@ export namespace Prisma {
     id: number
     name: number
     flow: number
+    isCurrentVersion: number
     version: number
     _all: number
   }
@@ -2209,6 +2212,7 @@ export namespace Prisma {
     id?: true
     name?: true
     flow?: true
+    isCurrentVersion?: true
     version?: true
   }
 
@@ -2216,6 +2220,7 @@ export namespace Prisma {
     id?: true
     name?: true
     flow?: true
+    isCurrentVersion?: true
     version?: true
   }
 
@@ -2223,6 +2228,7 @@ export namespace Prisma {
     id?: true
     name?: true
     flow?: true
+    isCurrentVersion?: true
     version?: true
     _all?: true
   }
@@ -2317,6 +2323,7 @@ export namespace Prisma {
     id: string
     name: string
     flow: $Enums.Flow
+    isCurrentVersion: boolean
     version: Decimal
     _count: AssistantCountAggregateOutputType | null
     _avg: AssistantAvgAggregateOutputType | null
@@ -2343,6 +2350,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     flow?: boolean
+    isCurrentVersion?: boolean
     version?: boolean
   }, ExtArgs["result"]["assistant"]>
 
@@ -2350,6 +2358,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     flow?: boolean
+    isCurrentVersion?: boolean
     version?: boolean
   }, ExtArgs["result"]["assistant"]>
 
@@ -2357,6 +2366,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     flow?: boolean
+    isCurrentVersion?: boolean
     version?: boolean
   }, ExtArgs["result"]["assistant"]>
 
@@ -2364,10 +2374,11 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     flow?: boolean
+    isCurrentVersion?: boolean
     version?: boolean
   }
 
-  export type AssistantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "flow" | "version", ExtArgs["result"]["assistant"]>
+  export type AssistantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "flow" | "isCurrentVersion" | "version", ExtArgs["result"]["assistant"]>
 
   export type $AssistantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Assistant"
@@ -2376,6 +2387,7 @@ export namespace Prisma {
       id: string
       name: string
       flow: $Enums.Flow
+      isCurrentVersion: boolean
       version: Prisma.Decimal
     }, ExtArgs["result"]["assistant"]>
     composites: {}
@@ -2803,6 +2815,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Assistant", 'String'>
     readonly name: FieldRef<"Assistant", 'String'>
     readonly flow: FieldRef<"Assistant", 'Flow'>
+    readonly isCurrentVersion: FieldRef<"Assistant", 'Boolean'>
     readonly version: FieldRef<"Assistant", 'Decimal'>
   }
     
@@ -4306,6 +4319,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     flow: 'flow',
+    isCurrentVersion: 'isCurrentVersion',
     version: 'version'
   };
 
@@ -4373,6 +4387,13 @@ export namespace Prisma {
    * Reference to a field of type 'Flow[]'
    */
   export type ListEnumFlowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Flow[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4496,6 +4517,7 @@ export namespace Prisma {
     id?: StringFilter<"Assistant"> | string
     name?: StringFilter<"Assistant"> | string
     flow?: EnumFlowFilter<"Assistant"> | $Enums.Flow
+    isCurrentVersion?: BoolFilter<"Assistant"> | boolean
     version?: DecimalFilter<"Assistant"> | Decimal | DecimalJsLike | number | string
   }
 
@@ -4503,23 +4525,27 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     flow?: SortOrder
+    isCurrentVersion?: SortOrder
     version?: SortOrder
   }
 
   export type AssistantWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    unique_current_version_per_flow?: AssistantUnique_current_version_per_flowCompoundUniqueInput
     AND?: AssistantWhereInput | AssistantWhereInput[]
     OR?: AssistantWhereInput[]
     NOT?: AssistantWhereInput | AssistantWhereInput[]
     name?: StringFilter<"Assistant"> | string
     flow?: EnumFlowFilter<"Assistant"> | $Enums.Flow
+    isCurrentVersion?: BoolFilter<"Assistant"> | boolean
     version?: DecimalFilter<"Assistant"> | Decimal | DecimalJsLike | number | string
-  }, "id" | "id">
+  }, "id" | "id" | "unique_current_version_per_flow">
 
   export type AssistantOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     flow?: SortOrder
+    isCurrentVersion?: SortOrder
     version?: SortOrder
     _count?: AssistantCountOrderByAggregateInput
     _avg?: AssistantAvgOrderByAggregateInput
@@ -4535,6 +4561,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Assistant"> | string
     name?: StringWithAggregatesFilter<"Assistant"> | string
     flow?: EnumFlowWithAggregatesFilter<"Assistant"> | $Enums.Flow
+    isCurrentVersion?: BoolWithAggregatesFilter<"Assistant"> | boolean
     version?: DecimalWithAggregatesFilter<"Assistant"> | Decimal | DecimalJsLike | number | string
   }
 
@@ -4656,6 +4683,7 @@ export namespace Prisma {
     id: string
     name: string
     flow: $Enums.Flow
+    isCurrentVersion: boolean
     version: Decimal | DecimalJsLike | number | string
   }
 
@@ -4663,6 +4691,7 @@ export namespace Prisma {
     id: string
     name: string
     flow: $Enums.Flow
+    isCurrentVersion: boolean
     version: Decimal | DecimalJsLike | number | string
   }
 
@@ -4670,6 +4699,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     flow?: EnumFlowFieldUpdateOperationsInput | $Enums.Flow
+    isCurrentVersion?: BoolFieldUpdateOperationsInput | boolean
     version?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
@@ -4677,6 +4707,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     flow?: EnumFlowFieldUpdateOperationsInput | $Enums.Flow
+    isCurrentVersion?: BoolFieldUpdateOperationsInput | boolean
     version?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
@@ -4684,6 +4715,7 @@ export namespace Prisma {
     id: string
     name: string
     flow: $Enums.Flow
+    isCurrentVersion: boolean
     version: Decimal | DecimalJsLike | number | string
   }
 
@@ -4691,6 +4723,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     flow?: EnumFlowFieldUpdateOperationsInput | $Enums.Flow
+    isCurrentVersion?: BoolFieldUpdateOperationsInput | boolean
     version?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
@@ -4698,6 +4731,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     flow?: EnumFlowFieldUpdateOperationsInput | $Enums.Flow
+    isCurrentVersion?: BoolFieldUpdateOperationsInput | boolean
     version?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
@@ -4876,6 +4910,11 @@ export namespace Prisma {
     not?: NestedEnumFlowFilter<$PrismaModel> | $Enums.Flow
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -4887,10 +4926,16 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type AssistantUnique_current_version_per_flowCompoundUniqueInput = {
+    flow: $Enums.Flow
+    isCurrentVersion: boolean
+  }
+
   export type AssistantCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     flow?: SortOrder
+    isCurrentVersion?: SortOrder
     version?: SortOrder
   }
 
@@ -4902,6 +4947,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     flow?: SortOrder
+    isCurrentVersion?: SortOrder
     version?: SortOrder
   }
 
@@ -4909,6 +4955,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     flow?: SortOrder
+    isCurrentVersion?: SortOrder
     version?: SortOrder
   }
 
@@ -4924,6 +4971,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumFlowFilter<$PrismaModel>
     _max?: NestedEnumFlowFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -5092,6 +5147,10 @@ export namespace Prisma {
     set?: $Enums.Flow
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -5200,6 +5259,11 @@ export namespace Prisma {
     not?: NestedEnumFlowFilter<$PrismaModel> | $Enums.Flow
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -5219,6 +5283,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumFlowFilter<$PrismaModel>
     _max?: NestedEnumFlowFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {

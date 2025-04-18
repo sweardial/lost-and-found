@@ -126,6 +126,7 @@ exports.Prisma.AssistantScalarFieldEnum = {
   id: 'id',
   name: 'name',
   flow: 'flow',
+  isCurrentVersion: 'isCurrentVersion',
   version: 'version'
 };
 

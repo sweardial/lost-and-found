@@ -1,27 +1,42 @@
-import { Flow } from '@/generated/prisma'
-import { prisma } from '../client'
+import { Flow } from "@/../generated/prisma";
+import { prisma } from "../client";
 
-export const createAssistant = async (id: string, name: string, flow: Flow, version: number) => {
+export const createAssistantDB = async ({
+  id,
+  name,
+  flow,
+  version,
+  isCurrentVersion,
+}: {
+  id: string;
+  name: string;
+  flow: Flow;
+  version: number;
+  isCurrentVersion: boolean;
+}) => {
   return prisma.assistant.create({
-    data: { id, name, flow, version }
-  })
-}
+    data: { id, name, flow, version, isCurrentVersion },
+  });
+};
 
-export const getAssistant = async (id: string) => {
-  return prisma.assistant.findUnique({
-    where: { id }
-  })
-}
+export const getCurrentAssistantByFlowDB = async ({ flow }: { flow: Flow }) => {
+  return prisma.assistant.findFirst({
+    where: { flow, isCurrentVersion: true },
+  });
+};
 
-export const updateAssistant = async (id: string, data: { name?: string; flow?: Flow; version?: number }) => {
+export const updateAssistantByIdDB = async (
+  id: string,
+  data: { name?: string; flow?: Flow; version?: number }
+) => {
   return prisma.assistant.update({
     where: { id },
-    data
-  })
-}
+    data,
+  });
+};
 
-export const deleteAssistant = async (id: string) => {
+export const deleteAssistantByIdDB = async (id: string) => {
   return prisma.assistant.delete({
-    where: { id }
-  })
-}
+    where: { id },
+  });
+};

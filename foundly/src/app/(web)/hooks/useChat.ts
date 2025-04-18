@@ -1,6 +1,6 @@
 // hooks/useChat.ts
 import { useCallback, useEffect, useRef, useState } from "react";
-import { STEPS } from "@/app/lib/constants";
+import { STEPS } from "@/lib/constants";
 
 export type Message = {
   role: string;
