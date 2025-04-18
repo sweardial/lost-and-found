@@ -28,6 +28,11 @@ export function useChat(flow: "lost" | "found") {
     inappropriateCounter: 0,
   });
 
+  const mapper = {
+    lost: "lost_item",
+    found: "found_item",
+  };
+
   const { messages, input, threadId } = chatState;
 
   useEffect(() => {
@@ -60,7 +65,7 @@ export function useChat(flow: "lost" | "found") {
           body: JSON.stringify({
             message,
             context: {
-              flow,
+              flow: mapper[flow],
               threadId,
             },
           }),

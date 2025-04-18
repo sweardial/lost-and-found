@@ -6,7 +6,6 @@
 
 generator client {
   provider        = "prisma-client-js"
-  output          = "../src/generated/prisma"
   previewFeatures = ["postgresqlExtensions"]
 }
 
@@ -39,11 +38,20 @@ model User {
 }
 
 model Assistant {
-  id               String  @id @unique
+  id               String   @id @unique
   name             String
   flow             Flow
-  isCurrentVersion Boolean 
   version          Decimal
+  isCurrentVersion Boolean
+  created_at       DateTime
+  description      String
+  model            String
+  instructions     String
+  tools            Json
+  metadata         Json
+  top_p            Float
+  temperature      Float
+  response_format  String
 
   @@unique([flow, isCurrentVersion], name: "unique_current_version_per_flow", map: "unique_current_version_per_flow_where_true")
 }

@@ -1,13 +1,13 @@
 import { createAssistantDB, getCurrentAssistantByFlowDB } from "../../../db";
-import { Flow } from "../../../generated/prisma";
-import { createOpenAIAssistant, openai } from "../openai";
+import { Flow } from "@prisma/client";
+import { createOpenAIAssistant } from "../openai";
 import { ORION_MODEL, ORION_PROMPT, ORION_TOOLS } from "./config";
 
-export const getOrCreateAssistantId = async ({ flow }: { flow: Flow }) => {
+export const getOrCreateAssistant = async ({ flow }: { flow: Flow }) => {
   const assistant = await getCurrentAssistantByFlowDB({ flow });
 
   if (assistant) {
-    return assistant.id;
+    return assistant;
   }
 
   const newAssistant = await createOpenAIAssistant({
@@ -20,11 +20,20 @@ export const getOrCreateAssistantId = async ({ flow }: { flow: Flow }) => {
 
   await createAssistantDB({
     id: newAssistant.id,
-    name: "Orion",
+    name: newAssistant.name as string,
     flow,
-    version: 1.0,
+    //@ts-expect-error number
+    version: 1.1,
     isCurrentVersion: true,
+    description: newAssistant.description as string,
+    model: newAssistant.model,
+    instructions: newAssistant.instructions as string,
+    tools: newAssistant.tools as object,
+    metadata: newAssistant.metadata,
+    top_p: newAssistant.top_p as number,
+    temperature: newAssistant.temperature as number,
+    response_format: newAssistant.response_format as string,
   });
 
-  return newAssistant.id;
+  return newAssistant;
 };

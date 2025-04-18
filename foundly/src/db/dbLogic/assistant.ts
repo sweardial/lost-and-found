@@ -1,22 +1,9 @@
-import { Flow } from "@/../generated/prisma";
+import { Assistant, Flow } from "@prisma/client";
 import { prisma } from "../client";
 
-export const createAssistantDB = async ({
-  id,
-  name,
-  flow,
-  version,
-  isCurrentVersion,
-}: {
-  id: string;
-  name: string;
-  flow: Flow;
-  version: number;
-  isCurrentVersion: boolean;
-}) => {
-  return prisma.assistant.create({
-    data: { id, name, flow, version, isCurrentVersion },
-  });
+export const createAssistantDB = async (data: Assistant) => {
+  //@ts-expect-error fix later the type
+  return prisma.assistant.create(data);
 };
 
 export const getCurrentAssistantByFlowDB = async ({ flow }: { flow: Flow }) => {
