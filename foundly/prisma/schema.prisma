@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [uuidOssp(map: "uuid-ossp")]
+}
+
+enum Flow {
+  lost_item
+  found_item
+}
+
+enum ItemEventType {
+  lost_item
+  found_item
+}
+
+enum ItemStatus {
+  pending
+  completed
+  discarded
+}
+
+model User {
+  id    String @id @default(uuid()) @db.Uuid
+  email String @unique
+  Item  Item[]
+}
+
+model Assistant {
+  id               String  @id @unique
+  name             String
+  flow             Flow
+  isCurrentVersion Boolean 
+  version          Decimal
+
+  @@unique([flow, isCurrentVersion], name: "unique_current_version_per_flow", map: "unique_current_version_per_flow_where_true")
+}
+
+model Item {
+  id                       String        @id @default(uuid()) @db.Uuid
+  name                     String
+  eventType                ItemEventType
+  status                   ItemStatus
+  description              String
+  event_location           String
+  event_occurred_at        DateTime
+  last_matching_attempt_at DateTime
+  userId                   String        @db.Uuid
+  user                     User          @relation(fields: [userId], references: [id])
+}

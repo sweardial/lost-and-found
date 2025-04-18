@@ -5,3 +5,25 @@ export const openai = new OpenAI({
 });
 
 export const ASSISTANT_ID = process.env.ASSISTANT_ID || "default_assistant";
+
+export const createOpenAIAssistant = async ({
+  instructions,
+  tools,
+  temperature,
+  model,
+}: OpenAI.Beta.Assistants.AssistantCreateParams) => {
+  //TODO: maybe wrap all openai calls into a try-catch block/retry logic
+  return openai.beta.assistants.create({
+    name: "Orion",
+    instructions,
+    temperature,
+    tools,
+    model,
+  });
+};
+
+export const createOpenAiThreadMessage = async ({ threadId, role, content }) =>
+  openai.beta.threads.messages.create(threadId, {
+    role,
+    content,
+  });

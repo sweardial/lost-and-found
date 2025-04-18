@@ -1,57 +1,30 @@
-import { openai } from "../openai";
+import { createAssistantDB, getCurrentAssistantByFlowDB } from "../../../db";
+import { Flow } from "../../../generated/prisma";
+import { createOpenAIAssistant, openai } from "../openai";
+import { ORION_MODEL, ORION_PROMPT, ORION_TOOLS } from "./config";
 
-export const getOpenAIAssistant = (params: unknown) => {};
+export const getOrCreateAssistantId = async ({ flow }: { flow: Flow }) => {
+  const assistant = await getCurrentAssistantByFlowDB({ flow });
 
+  if (assistant) {
+    return assistant.id;
+  }
 
-//Proof of concept. It works.
-export const createOrion = async (params: unknown) => {
-  const instruction = `
-    You're an assistant responsible for helping user submit their application for a lost item in NYC subway system.
-
-    Your task is to follow structured steps:
-        1) WHAT
-        2) WHERE
-        3) WHEN
-        4) CONFIRM
-        5) EMAIL
-        6) COMPLETE
-
-    You should keep track of collected data on each step. Order should be preserved.
-    
-    ## Step 1: WHAT:
-    - initialize step with: Hello! I'm sorry you lost something in the NYC subway. Can you describe in detail what you lost? Please provide as much detail as possible.
-    - Validate user response with validateUserItemDescription function.
-    - Based on status returned by validateUserItemDescription function:
-        - If status is "valid", proceed to the next step
-        - If status is "vague", ask user to provide more details about the item
-        - If status is "unrealistic", ask user to provide a realistic description of the item.
-    `;
-
-  const assistant = await openai.beta.assistants.create({
-    name: "Orion",
-    instructions: instruction,
+  const newAssistant = await createOpenAIAssistant({
     temperature: 0.1,
-    tools: [
-      {
-        type: "function",
-        function: {
-          name: "validateUserItemDescription",
-          description: "Validate the description of an item provided by user.",
-          parameters: {
-            type: "object",
-            properties: {
-              userInput: {
-                type: "string",
-                description: "The user's input describing the item",
-              },
-            },
-            required: ["userInput"],
-          },
-        },
-      },
-    ],
-    model: "gpt-4.1-nano",
+    name: "Orion",
+    tools: ORION_TOOLS,
+    instructions: ORION_PROMPT,
+    model: ORION_MODEL,
   });
 
-  return assistant;
+  await createAssistantDB({
+    id: newAssistant.id,
+    name: "Orion",
+    flow,
+    version: 1.0,
+    isCurrentVersion: true,
+  });
+
+  return newAssistant.id;
 };
