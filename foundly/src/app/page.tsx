@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useCallback, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Chat from "./components/Chat"; // Import the Chat component
+import Chat from "./web/components/Chat"; // Import the Chat component
 
 export default function Home() {
   // const router = useRouter();

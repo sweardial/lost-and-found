@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { openai } from "../../lib/openai";
-import { createOrion } from "../../lib/assistants/assistant";
-import { validateUserItemDescription } from "../../lib/assistants/validations";
+import { openai } from "@/app/lib/openai";
+import { createOrion } from "@/app/lib/assistants/assistant";
+import { validateUserItemDescription } from "@/app/lib/assistants/validations";
 
 export async function POST(request: Request) {
   try {

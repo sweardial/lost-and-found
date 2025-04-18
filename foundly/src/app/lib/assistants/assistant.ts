@@ -2,8 +2,6 @@ import { openai } from "../openai";
 
 export const getOpenAIAssistant = (params: unknown) => {};
 
-
-//Proof of concept. It works.
 export const createOrion = async (params: unknown) => {
   const instruction = `
     You're an assistant responsible for helping user submit their application for a lost item in NYC subway system.
