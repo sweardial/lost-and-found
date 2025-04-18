@@ -1,25 +1,21 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { openai } from "../../lib/openai";
+import { createOrion } from "../../lib/assistants/assistant";
+import { validateUserItemDescription } from "../../lib/assistants/validations";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const ASSISTANT_ID = process.env.ASSISTANT_ID;
-
-export async function POST(request: any) {
+export async function POST(request: Request) {
   try {
     const { message, context } = await request.json();
 
     const threadId =
       context?.threadId || (await openai.beta.threads.create()).id;
 
-    // Process with AI
     const aiResponse = await processWithOpenAI(message, threadId);
 
     return NextResponse.json({
       message: aiResponse.message,
       step: aiResponse.step,
+      isInappropriate: aiResponse.isInappropriate,
       context: {
         ...context,
         threadId,
@@ -35,51 +31,125 @@ export async function POST(request: any) {
   }
 }
 
+async function moderationCheckWithOpenAI(message: string): Promise<boolean> {
+  const response = await openai.moderations.create({
+    model: "omni-moderation-latest",
+    input: message,
+  });
+
+  const flagged = response.results.some((result) => result.flagged);
+
+  return flagged;
+}
+
 async function processWithOpenAI(
   message: string,
   threadId: string
-): Promise<any> {
+): Promise<{ message: string; step: string; isInappropriate?: boolean }> {
+  const isFlagged = await moderationCheckWithOpenAI(message);
+
+  if (isFlagged) {
+    return { message: "Behave!", step: "", isInappropriate: true };
+  }
+
   await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: message,
   });
 
-  const run = await openai.beta.threads.runs.create(threadId, {
-    assistant_id: ASSISTANT_ID || "default_assistant",
+  const assistant = await createOrion({});
+
+  let run = await openai.beta.threads.runs.create(threadId, {
+    assistant_id: assistant.id,
   });
 
-  // 4. Poll until the run is complete
-  let runStatus = run.status;
-  let runResult;
   while (
-    runStatus !== "completed" &&
-    runStatus !== "failed" &&
-    runStatus !== "cancelled"
+    run.status !== "completed" &&
+    run.status !== "requires_action" &&
+    run.status !== "failed" &&
+    run.status !== "cancelled"
   ) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    runResult = await openai.beta.threads.runs.retrieve(threadId, run.id);
-    runStatus = runResult.status;
+    run = await openai.beta.threads.runs.retrieve(threadId, run.id);
   }
 
-  const messages = await openai.beta.threads.messages.list(threadId);
-
-  const lastMessage = messages.data.find((msg) => msg.role === "assistant");
-
-  // Parse the response content
-  let responseContent: { message: string; step: string } | null;
-  try {
-    const contentText = JSON.parse(lastMessage?.content[0].text.value) as {
-      message: string;
-      step: string;
-    };
-    responseContent = contentText || null;
-  } catch (error) {
-    console.error("Error parsing assistant response:", error);
-    responseContent = null;
-  }
+  const messages = await handleRunStatus(run, threadId);
 
   return {
-    message: responseContent?.message || "Sorry, I couldn't understand that.",
-    step: responseContent?.step || "",
+    message: "Sorry, I couldn't understand that.",
+    step: "",
   };
+
+  // const lastMessage = messages.data.find((msg) => msg.role === "assistant");
+
+  // let responseContent: { message: string; step: string } | null;
+  // try {
+  //   //@ts-expect-error type is not defined
+  //   const contentText = JSON.parse(lastMessage?.content[0].text.value) as {
+  //     message: string;
+  //     step: string;
+  //   };
+  //   responseContent = contentText || null;
+  // } catch (error) {
+  //   console.error("Error parsing assistant response:", error);
+  //   responseContent = null;
+  // }
+
+  // console.log({ responseContent });
+
+  // return {
+  //   message: responseContent?.message || "Sorry, I couldn't understand that.",
+  //   step: responseContent?.step || "",
+  // };
 }
+
+const handleRequiresAction = async (run, treadId) => {
+  if (
+    run.required_action &&
+    run.required_action.submit_tool_outputs &&
+    run.required_action.submit_tool_outputs.tool_calls
+  ) {
+    const toolOutputs = run.required_action.submit_tool_outputs.tool_calls.map(
+      (tool) => {
+        if (tool.function.name === "validateUserItemDescription") {
+          return {
+            tool_call_id: tool.id,
+            output: JSON.stringify(
+              validateUserItemDescription(
+                JSON.parse(tool.function.arguments).userInput
+              )
+            ),
+          };
+        }
+      }
+    );
+
+    // Submit all tool outputs at once after collecting them in a list
+    if (toolOutputs.length > 0) {
+      run = await openai.beta.threads.runs.submitToolOutputsAndPoll(
+        treadId,
+        run.id,
+        { tool_outputs: toolOutputs }
+      );
+      console.log("Tool outputs submitted successfully.");
+    } else {
+      console.log("No tool outputs to submit.");
+    }
+
+    // Check status after submitting tool outputs
+    return handleRunStatus(run, treadId);
+  }
+};
+
+const handleRunStatus = async (run, treadId) => {
+  if (run.status === "completed") {
+    console.log("STATUS COMPLETED");
+    const messages = await openai.beta.threads.messages.list(treadId);
+    return messages.data;
+  } else if (run.status === "requires_action") {
+    console.log("REQUIRED ACTION", run);
+    return await handleRequiresAction(run, treadId);
+  } else {
+    console.error("Run did not complete:", run);
+  }
+};

@@ -1,194 +1,51 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-
-enum STAGES {
-  WHAT = "WHAT",
-  WHEN = "WHEN",
-  WHERE = "WHERE",
-  CONFIRM = "CONFIRM",
-  COMPLETE = "COMPLETE",
-}
-
-type message = {
-  role: string;
-  content: string;
-};
+import Image from "next/image";
+import { useChat } from "../hooks/useChat";
+import { STEPS } from "../lib/constants";
 
 export default function Chat({ flow }: { flow: "lost" | "found" }) {
-  const isInitialized = useRef(false);
-  const messagesEndRef = useRef<any>(null);
-
-  const [{ messages, input, threadId, isLoading, currentStep }, setChatState] =
-    useState<{
-      messages: message[];
-      input: string;
-      threadId: string | null;
-      isLoading: boolean;
-      currentStep: STAGES | null;
-    }>({
-      messages: [],
-      input: "",
-      threadId: null,
-      isLoading: false,
-      currentStep: null,
-    });
-
-  useEffect(() => {
-    //to prevent double rendering due to React.Strict Mode
-    if (isInitialized.current) {
-      return;
-    }
-    isInitialized.current = true;
-    initializeChat();
-  }, []);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const initializeChat = useCallback(() => {
-    setChatState((prev) => ({
-      ...prev,
-      isLoading: true,
-    }));
-
-    const initialization = async () => {
-      try {
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: `Initialize ${flow} item report`,
-            context: { flow },
-          }),
-        });
-
-        if (!response.ok) throw new Error("Failed to initiate chat");
-
-        const data = await response.json();
-
-        console.log({ data });
-
-        setChatState((prev) => ({
-          ...prev,
-          threadId: data.context.threadId,
-          isLoading: false,
-          currentStep: data.step,
-          messages: [
-            ...prev.messages,
-            { role: "assistant", content: data.message },
-          ],
-        }));
-      } catch (error) {
-        console.error("Error initiating chat:", error);
-        setChatState((prev) => ({
-          ...prev,
-          isLoading: false,
-          messages: [
-            ...prev.messages,
-            {
-              role: "assistant",
-              content:
-                "Sorry, I'm having trouble connecting. Please try again later.",
-            },
-          ],
-        }));
-      }
-    };
-
-    initialization();
-  }, []);
-
-  const sendMessage = async () => {
-    if (input.trim() === "") return;
-
-    const userMessage = { role: "user", content: input };
-    setChatState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, userMessage],
-      input: "",
-      isLoading: true,
-    }));
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input,
-          context: {
-            flow,
-            threadId,
-          },
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to send message");
-
-      const data = await response.json();
-
-      const aiMessage = {
-        role: "assistant",
-        content: data.message,
-      };
-
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        messages: [...prev.messages, aiMessage],
-        currentStep: data.step,
-      }));
-    } catch (error) {
-      console.error("Error sending message:", error);
-
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        messages: [
-          ...prev.messages,
-          {
-            role: "assistant",
-            content: "Sorry, I'm having trouble connecting. Please try again.",
-          },
-        ],
-      }));
-    }
-  };
-
-  const handleKeyPress = (e: any) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+  const {
+    chatState: {
+      messages,
+      input,
+      isLoading,
+      currentStep,
+      inappropriateCounter,
+    },
+    messagesEndRef,
+    sendMessage,
+    updateInput,
+    handleKeyPress,
+  } = useChat(flow);
 
   const renderProgress = () => {
-    const stages = [
-      STAGES.WHAT,
-      STAGES.WHERE,
-      STAGES.WHEN,
-      STAGES.CONFIRM,
-      STAGES.COMPLETE,
+    const steps = [
+      STEPS.WHAT,
+      STEPS.WHERE,
+      STEPS.WHEN,
+      STEPS.CONFIRM,
+      STEPS.EMAIL,
+      STEPS.COMPLETE,
     ];
 
-    const currentIndex = stages.indexOf(currentStep || STAGES.WHAT);
+    const currentIndex = steps.indexOf(currentStep || STEPS.WHAT);
 
     return (
-      <div className="flex justify-between px-4 py-2 bg-amber-100">
-        {stages.map((step, index) => (
+      <div className="flex justify-between px-4 py-2 bg-gray-100">
+        {steps.map((step, index) => (
           <div
             key={step}
             className={`flex flex-col items-center ${
-              index <= currentIndex ? "text-amber-800" : "text-gray-400"
+              index <= currentIndex ? "text-mtaBlueLine" : "text-gray-400"
             }`}
           >
             <div
               className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                index < currentIndex || currentIndex == stages.length - 1
-                  ? "bg-green-500 text-white"
+                index < currentIndex || currentIndex == steps.length - 1
+                  ? "bg-mtaGreenLine text-white"
                   : index === currentIndex
-                  ? "bg-amber-500 text-white"
+                  ? "bg-mtaBlueLine text-white"
                   : "bg-gray-200 text-gray-500"
               }`}
             >
@@ -201,12 +58,26 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
     );
   };
 
+  //TODO: add proper handling of abusive request
+
+  if (inappropriateCounter > 2) {
+    return (
+      <div className="flex justify-center items-center px-4 py-2  text-black font-bold text-4xl">
+        GOODBYE
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-full w-full bg-white rounded-2xl overflow-hidden">
-      <div className="bg-amber-300 p-4 border-b">
-        <h2 className="text-lg text-black font-semibold">
-          {flow === "lost" ? "Report a Lost Item" : "Report a Found Item"}
-        </h2>
+      <div className="bg-mtaGreenLine p-4 border-b flex justify-center items-center">
+        <Image
+          src="/mta_logo.png"
+          alt="MTA Logo"
+          width={25}
+          height={25}
+          priority
+        />
       </div>
 
       {/* Progress indicator */}
@@ -251,28 +122,26 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
         <div className="flex space-x-2">
           <textarea
             value={input}
-            onChange={(e) =>
-              setChatState((prev) => ({ ...prev, input: e.target.value }))
-            }
+            onChange={(e) => updateInput(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="Type a message..."
             maxLength={100}
-            className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-amber-300 placeholder:text-gray-400 text-gray-800"
+            className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-mtaGreenLine placeholder:text-gray-400 text-gray-800"
             rows={1}
-            disabled={currentStep === STAGES.COMPLETE}
+            disabled={currentStep === STEPS.COMPLETE}
           />
 
           <div className="flex justify-center items-center space-x-2">
-            <div className=" text-gray-400">{input.length}/100</div>
+            <div className="text-gray-400">{input.length}/100</div>
 
             <button
               onClick={sendMessage}
               disabled={
                 isLoading ||
                 input.trim() === "" ||
-                currentStep === STAGES.COMPLETE
+                currentStep === STEPS.COMPLETE
               }
-              className="p-2 bg-amber-300 text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
+              className="p-2 bg-mtaGreenLine text-black rounded-full hover:bg-amber-400 disabled:opacity-50"
             >
               ➤
             </button>
