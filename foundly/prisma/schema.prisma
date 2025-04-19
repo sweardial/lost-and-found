@@ -43,28 +43,29 @@ model Assistant {
   flow             Flow
   version          Decimal
   isCurrentVersion Boolean
-  created_at       DateTime
-  description      String
-  model            String
-  instructions     String
-  tools            Json
-  metadata         Json
-  top_p            Float
-  temperature      Float
-  response_format  String
+  createdAt        DateTime @default(now())
+  description      String?
+  model            String?
+  instructions     String?
+  tools            Json?
+  metadata         Json?
+  topP             Float?
+  temperature      Float?
+  responseFormat   Json?
 
   @@unique([flow, isCurrentVersion], name: "unique_current_version_per_flow", map: "unique_current_version_per_flow_where_true")
 }
 
 model Item {
-  id                       String        @id @default(uuid()) @db.Uuid
-  name                     String
-  eventType                ItemEventType
-  status                   ItemStatus
-  description              String
-  event_location           String
-  event_occurred_at        DateTime
-  last_matching_attempt_at DateTime
-  userId                   String        @db.Uuid
-  user                     User          @relation(fields: [userId], references: [id])
+  id                    String        @id @default(uuid()) @db.Uuid
+  name                  String
+  eventType             ItemEventType
+  status                ItemStatus
+  description           String
+  eventLocation         String
+  eventOccurredAt       DateTime
+  lastMatchingAttemptAt DateTime
+  userId                String        @db.Uuid
+  user                  User          @relation(fields: [userId], references: [id])
+  createdAt             DateTime      @default(now())
 }

@@ -12,13 +12,32 @@ export const createOpenAIAssistant = async ({
   temperature,
   model,
 }: OpenAI.Beta.Assistants.AssistantCreateParams) => {
-  //TODO: maybe wrap all openai calls into a try-catch block/retry logic
   return openai.beta.assistants.create({
     name: "Orion",
     instructions,
     temperature,
     tools,
     model,
+    response_format: {
+      type: "json_schema",
+      json_schema: {
+        name: "output_schema",
+        strict: true,
+        schema: {
+          type: "object",
+          properties: {
+            message: {
+              type: "string",
+            },
+            step: {
+              type: "string",
+            },
+          },
+          additionalProperties: false,
+          required: ["message", "step"],
+        },
+      },
+    },
   });
 };
 

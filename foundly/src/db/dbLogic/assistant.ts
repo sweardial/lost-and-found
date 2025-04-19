@@ -2,8 +2,8 @@ import { Assistant, Flow } from "@prisma/client";
 import { prisma } from "../client";
 
 export const createAssistantDB = async (data: Assistant) => {
-  //@ts-expect-error fix later the type
-  return prisma.assistant.create(data);
+  //@ts-expect-error fix later
+  return prisma.assistant.create({ data});
 };
 
 export const getCurrentAssistantByFlowDB = async ({ flow }: { flow: Flow }) => {

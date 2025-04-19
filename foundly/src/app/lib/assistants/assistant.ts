@@ -16,6 +16,7 @@ export const getOrCreateAssistant = async ({ flow }: { flow: Flow }) => {
     tools: ORION_TOOLS,
     instructions: ORION_PROMPT,
     model: ORION_MODEL,
+    
   });
 
   await createAssistantDB({
@@ -30,9 +31,9 @@ export const getOrCreateAssistant = async ({ flow }: { flow: Flow }) => {
     instructions: newAssistant.instructions as string,
     tools: newAssistant.tools as object,
     metadata: newAssistant.metadata,
-    top_p: newAssistant.top_p as number,
+    topP: newAssistant.top_p as number,
     temperature: newAssistant.temperature as number,
-    response_format: newAssistant.response_format as string,
+    responseFormat: newAssistant.response_format as string,
   });
 
   return newAssistant;

@@ -9,8 +9,6 @@ export async function processChatMessage(message: string, context: any) {
 
   const { flow }: { flow: Flow } = context;
 
-  console.log({ flow });
-
   const isInappropriate = await moderationCheck(message);
   if (isInappropriate) {
     return {
@@ -23,24 +21,32 @@ export async function processChatMessage(message: string, context: any) {
 
   await createOpenAiThreadMessage({ threadId, role: "user", content: message });
 
-  await openai.beta.threads.messages.create(threadId, {
-    role: "user",
-    content: message,
-  });
-
   const assistant = await getOrCreateAssistant({ flow });
 
-  const run = await openai.beta.threads.runs.create(threadId, {
-    assistant_id: assistant.id,
-  });
+  if (!assistant) {
+    throw new Error("Assistant not found");
+  }
 
-  const messages = await handleRunStatus(run, threadId);
+  const run = await openai.beta.threads.runs.createAndPoll(
+    threadId,
+    {
+      assistant_id: assistant.id,
+    },
+    { pollIntervalMs: 2000, maxRetries: 10 }
+  );
 
-  console.log({ messages });
+  const { data } = await handleRunStatus(run, threadId);
+
+  const lastMessage = data.find((msg) => msg.role === "assistant");
+
+  //@ts-expect-error no type for this
+  const parsedMessage = JSON.parse(lastMessage?.content[0].text.value);
+
+  console.log({ parsedMessage });
 
   return {
-    message: "Sorry, I couldn't understand that.", // placeholder
-    step: "",
+    message: parsedMessage.message,
+    step: parsedMessage.step,
     isInappropriate: false,
     context: { ...context, threadId, lastMessage: message },
   };

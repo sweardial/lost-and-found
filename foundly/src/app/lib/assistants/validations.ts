@@ -47,10 +47,8 @@ export const validateUserItemDescription = async (userPrompt: string) => {
       `,
   });
 
-  console.log({ response });
-
   return {
-    status: "vague",
+    status: JSON.parse(response.output_text).status,
   };
 };
 

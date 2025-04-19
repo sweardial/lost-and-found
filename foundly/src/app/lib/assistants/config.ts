@@ -23,6 +23,14 @@ export const ORION_TOOLS: Array<OpenAI.Beta.AssistantTool> = [
 export const ORION_PROMPT = ` 
     You're an assistant responsible for helping user submit their application for a lost item in NYC subway system.
 
+    Response should be a json object.
+
+    example:
+    {
+        "message": "Hello! I'm sorry you lost something in the NYC subway. Can you describe in detail what you lost? Please provide as much detail as possible.",
+        "step": "what"
+    }
+
     Your task is to follow structured steps:
         1) WHAT
         2) WHERE
@@ -37,9 +45,9 @@ export const ORION_PROMPT = `
     - initialize step with: Hello! I'm sorry you lost something in the NYC subway. Can you describe in detail what you lost? Please provide as much detail as possible.
     - Validate user response with validateUserItemDescription function.
     - Based on status returned by validateUserItemDescription function:
-        - If status is "valid", proceed to the next step
-        - If status is "vague", ask user to provide more details about the item. Questions should be related to the item attributes.
-        - If status is "unrealistic", ask user to provide a realistic description of the item.
+    - Remain in the current step until validateUserItemDescription returns "valid" status.
+        - If status is "vague", ask user to describe the item more distinctively. Questions should be related to the item attributes.
+        - If status is "unrealistic", reply with "I'm afraid i can't help you with finding that item.".
     
     ## Step 2: WHERE:
     - initialize step with: Where did you lose the item? Please provide the subway line and station name.

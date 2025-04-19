@@ -1,43 +1,61 @@
 import { openai } from "@/lib/openai";
 import { validateUserItemDescription } from "@/lib/assistants/validations";
+import { Run } from "openai/resources/beta/threads/runs/runs.mjs";
+import {
+  Message,
+  MessagesPage,
+} from "openai/resources/beta/threads/messages.mjs";
+import { PagePromise } from "openai/core.mjs";
 
-export async function handleRunStatus(run, threadId) {
+export async function handleRunStatus(
+  run: Run,
+  threadId: string
+): Promise<PagePromise<MessagesPage, Message>> {
   if (run.status === "completed") {
-    return await openai.beta.threads.messages.list(threadId);
+    return openai.beta.threads.messages.list(threadId);
   } else if (run.status === "requires_action") {
-    return await handleRequiresAction(run, threadId);
+    return handleRequiresAction(run, threadId);
   } else {
-    console.error("Run did not complete:", run);
-    return [];
+    console.error("Unhandled run status:", run.status);
+    throw new Error();
   }
 }
 
-async function handleRequiresAction(run, threadId) {
+async function handleRequiresAction(run: Run, threadId: string) {
   const toolCalls = run.required_action?.submit_tool_outputs?.tool_calls || [];
 
-  const toolOutputs = toolCalls
-    .map((tool) => {
+  const toolOutputs = await Promise.all(
+    toolCalls.map(async (tool) => {
       if (tool.function.name === "validateUserItemDescription") {
-        return {
+        const userItem = JSON.parse(tool.function.arguments).userInput;
+
+        const validationResult = await validateUserItemDescription(userItem);
+
+        const object = {
           tool_call_id: tool.id,
-          output: JSON.stringify(
-            validateUserItemDescription(
-              JSON.parse(tool.function.arguments).userInput
-            )
-          ),
+          output: JSON.stringify(validationResult),
         };
+
+        return object;
       }
     })
-    .filter(Boolean);
+  );
 
-  if (toolOutputs.length > 0) {
-    run = await openai.beta.threads.runs.submitToolOutputsAndPoll(
-      threadId,
-      run.id,
-      { tool_outputs: toolOutputs }
-    );
-    return await handleRunStatus(run, threadId);
+  if (!toolOutputs.length) {
+    throw Error("No valid tool outputs found");
   }
 
-  return [];
+  const toolRun = await openai.beta.threads.runs.submitToolOutputsAndPoll(
+    threadId,
+    run.id,
+    //@ts-expect-error fix later
+    { tool_outputs: toolOutputs },
+    {
+      maxRetries: 5,
+      pollIntervalMs: 2000,
+      timeout: 10000,
+    }
+  );
+
+  return handleRunStatus(toolRun, threadId);
 }

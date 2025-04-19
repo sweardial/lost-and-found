@@ -39,8 +39,9 @@ export function useChat(flow: "lost" | "found") {
     const init = async () => {
       await callChatAPI(`Initialize ${flow} item report`);
     };
-    //threads should not  be deleted not cancelled.
     init();
+
+    console.log("IM HERE");
   }, []);
 
   useEffect(() => {
