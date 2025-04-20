@@ -22,6 +22,7 @@ export const validateUserItemDescription = async (userPrompt: string) => {
       Bad examples:
       - "pet dragon."
       - "red scarf."
+      - "big blue backpack"
       - "black wallet"
       - "unicorn"
       - "wallet."
@@ -52,13 +53,31 @@ export const validateUserItemDescription = async (userPrompt: string) => {
   };
 };
 
-export const validateUserLostItemLocation = () => {};
-export const validateUserLostItemDate = () => {};
-export const validateUserLostItemEmail = () => {};
-export const validateUserLostItemConfirmation = () => {};
+export const validateUserItemLocation = async (userPrompt: string) => {
+  const response = await openai.responses.create({
+    model: "gpt-4.1-nano",
+    input: [{ role: "user", content: userPrompt }],
+    instructions: `Your task is to validate user prompt.
 
-export const validateUserFoundItemDescription = () => {};
-export const validateUserFoundItemLocation = () => {};
-export const validateUserFoundItemDate = () => {};
-export const validateUserFoundItemEmail = () => {};
-export const validateUserFoundItemConfirmation = () => {};
+      You should identify if user prompt is a description a location in NYC subway system.
+      The description should be sufficiently detailed and realistic.
+
+      Good examples:
+      
+
+      Bad examples:
+      
+
+      You should respond with a JSON object containing the following field:
+      - status: "valid" | "vague" | "unrealistic"
+
+      valid - the description is detailed and realistic
+      vague - the description is too vague or general
+      unrealistic - the description is unrealistic or not a physical location
+      `,
+  });
+
+  return {
+    status: JSON.parse(response.output_text).status,
+  };
+};

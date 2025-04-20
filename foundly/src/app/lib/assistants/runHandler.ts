@@ -1,12 +1,19 @@
+import {
+  validateUserItemDescription,
+  validateUserItemLocation,
+} from "@/lib/assistants/validations";
 import { openai } from "@/lib/openai";
-import { validateUserItemDescription } from "@/lib/assistants/validations";
-import { Run } from "openai/resources/beta/threads/runs/runs.mjs";
+import { PagePromise } from "openai/core.mjs";
 import {
   Message,
   MessagesPage,
 } from "openai/resources/beta/threads/messages.mjs";
-import { PagePromise } from "openai/core.mjs";
+import { Run } from "openai/resources/beta/threads/runs/runs.mjs";
 
+const mapper = {
+  validateUserItemDescription: validateUserItemDescription,
+  validateUserItemLocation: validateUserItemLocation,
+};
 export async function handleRunStatus(
   run: Run,
   threadId: string
@@ -26,18 +33,22 @@ async function handleRequiresAction(run: Run, threadId: string) {
 
   const toolOutputs = await Promise.all(
     toolCalls.map(async (tool) => {
-      if (tool.function.name === "validateUserItemDescription") {
-        const userItem = JSON.parse(tool.function.arguments).userInput;
+      const userItem = JSON.parse(tool.function.arguments).userInput;
 
-        const validationResult = await validateUserItemDescription(userItem);
+      const handler = mapper[tool.function.name];
 
-        const object = {
-          tool_call_id: tool.id,
-          output: JSON.stringify(validationResult),
-        };
-
-        return object;
+      if (!handler) {
+        throw new Error(`No handler found for tool: ${tool.function.name}`);
       }
+
+      const validationResult = await handler(userItem);
+
+      const object = {
+        tool_call_id: tool.id,
+        output: JSON.stringify(validationResult),
+      };
+
+      return object;
     })
   );
 
@@ -48,7 +59,6 @@ async function handleRequiresAction(run: Run, threadId: string) {
   const toolRun = await openai.beta.threads.runs.submitToolOutputsAndPoll(
     threadId,
     run.id,
-    //@ts-expect-error fix later
     { tool_outputs: toolOutputs },
     {
       maxRetries: 5,

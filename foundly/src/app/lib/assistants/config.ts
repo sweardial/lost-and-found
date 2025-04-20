@@ -59,8 +59,8 @@ export const ORION_PROMPT = `
     
     ## Step 3: WHEN:
     - initialize step with: When did you lose the item? Please provide the date and time.
-    - Validate user response with validateUserLostItemDate function.
-    - Based on status returned by validateUserLostItemDate function:
+    - Validate user response with validateUserItemDate function.
+    - Based on status returned by validateUserItemDate function:
         - If status is "valid", proceed to the next step
         - If status is "vague", ask user to provide more details about the date and time. Questions should be related to the date and time attributes.
         - If status is "unrealistic", ask user to provide a realistic date and time description.

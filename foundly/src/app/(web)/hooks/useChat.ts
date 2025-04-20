@@ -39,9 +39,8 @@ export function useChat(flow: "lost" | "found") {
     const init = async () => {
       await callChatAPI(`Initialize ${flow} item report`);
     };
-    init();
 
-    console.log("IM HERE");
+    init();
   }, []);
 
   useEffect(() => {

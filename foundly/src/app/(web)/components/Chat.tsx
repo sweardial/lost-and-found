@@ -128,7 +128,7 @@ export default function Chat({ flow }: { flow: "lost" | "found" }) {
             maxLength={100}
             className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-mtaGreenLine placeholder:text-gray-400 text-gray-800"
             rows={1}
-            disabled={currentStep === STEPS.COMPLETE}
+            disabled={currentStep === STEPS.COMPLETE || isLoading}
           />
 
           <div className="flex justify-center items-center space-x-2">
