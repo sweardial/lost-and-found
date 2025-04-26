@@ -1,6 +1,4 @@
 export enum STEPS {
-  EMAIL = "EMAIL",
-  CONFIRMATION_CODE = "CONFIRMATION_CODE",
   WHAT = "WHAT",
   WHEN = "WHEN",
   WHERE = "WHERE",

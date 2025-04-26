@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Chat from "./components/Chat"; // Import the Chat component
+import Flow from "./components/Flow";
 
 export default function Home() {
   // const router = useRouter();
@@ -49,7 +50,9 @@ export default function Home() {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-mtaYellowLine">
       <motion.div
-        className="flex flex-1 flex-row items-center justify-center bg-white group cursor-pointer relative"
+        className={`flex flex-1 flex-row items-center justify-center bg-white group cursor-${
+          action ? "default" : "pointer"
+        } relative`}
         onClick={handleLost}
         animate={
           action === "lost"
@@ -63,9 +66,7 @@ export default function Home() {
         </span>
         {action === "lost" && (
           <motion.div className="absolute top-0 left-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-mtaYellowLine">
-            <div className="rounded-2xl flex h-3/4 w-2/3 bg-amber-50 justify-center items-center">
-              <Chat flow="lost" />
-            </div>
+            <Flow flow="lost" />
           </motion.div>
         )}
       </motion.div>
@@ -91,7 +92,9 @@ export default function Home() {
 
       <motion.div
         onClick={handleFound}
-        className="cursor-pointer flex flex-row flex-1 items-center justify-center bg-mtaBlue group"
+        className={`cursor-${
+          action ? "default" : "pointer"
+        } flex flex-row flex-1 items-center justify-center bg-mtaBlue group`}
         animate={
           action === "found"
             ? { width: "50%", x: "-100%" }
@@ -104,9 +107,7 @@ export default function Home() {
         </span>
         {action === "found" && (
           <motion.div className="absolute top-0 right-[-99%] h-full w-full flex flex-1 flex-row items-center justify-center bg-mtaYellowLine">
-            <div className="rounded-2xl flex h-3/4 w-2/3 bg-amber-50 justify-center items-center">
-              <Chat flow="found" />
-            </div>
+            <Flow flow="found" />
           </motion.div>
         )}
       </motion.div>

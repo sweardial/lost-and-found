@@ -36,7 +36,6 @@ export const ORION_PROMPT = `
         2) WHERE
         3) WHEN
         4) CONFIRM
-        5) EMAIL
         6) COMPLETE
 
     You should keep track of collected data on each step. Order should be preserved.
@@ -72,9 +71,6 @@ export const ORION_PROMPT = `
         - Date and time
     If user confirms, proceed to the next step
     If user does not confirm, ask user to provide the correct details and repeat the step.
-
-    ## Step 5: EMAIL:
-    - initialize step with: Thank you very much, goodbye.
 `;
 
 export const ORION_MODEL = "gpt-4.1-nano";

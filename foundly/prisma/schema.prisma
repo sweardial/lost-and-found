@@ -32,9 +32,10 @@ enum ItemStatus {
 }
 
 model User {
-  id    String @id @default(uuid()) @db.Uuid
-  email String @unique
-  Item  Item[]
+  id         String       @id @default(uuid()) @db.Uuid
+  email      String       @unique
+  Item       Item[]
+  LoginCodes LoginCodes[]
 }
 
 model Assistant {
@@ -68,4 +69,15 @@ model Item {
   userId                String        @db.Uuid
   user                  User          @relation(fields: [userId], references: [id])
   createdAt             DateTime      @default(now())
+}
+
+model LoginCodes {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   @unique
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  isUsed    Boolean  @default(false)
+  attempt   Int      @default(1)
+  expiresAt DateTime
 }

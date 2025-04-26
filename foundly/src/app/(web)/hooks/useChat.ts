@@ -26,7 +26,7 @@ export function useChat(flow: "lost" | "found") {
     input: "",
     threadId: null,
     isLoading: false,
-    currentStep: STEPS.EMAIL,
+    currentStep: STEPS.WHAT,
     inappropriateCounter: 0,
   });
 

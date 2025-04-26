@@ -7,8 +7,6 @@ export default function Progress(props: Props) {
   const { currentStep } = props;
 
   const steps = [
-    STEPS.EMAIL,
-    STEPS.CONFIRMATION_CODE,
     STEPS.WHAT,
     STEPS.WHERE,
     STEPS.WHEN,
