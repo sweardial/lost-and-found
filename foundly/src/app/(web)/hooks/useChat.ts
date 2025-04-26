@@ -1,6 +1,8 @@
 // hooks/useChat.ts
 import { useCallback, useEffect, useRef, useState } from "react";
 import { STEPS } from "@/lib/constants";
+import { useModal } from "../components/ModalContext";
+import { on } from "events";
 
 export type Message = {
   role: string;
@@ -12,7 +14,7 @@ export type ChatState = {
   input: string;
   threadId: string | null;
   isLoading: boolean;
-  currentStep: STEPS | null;
+  currentStep: STEPS;
   inappropriateCounter: number;
 };
 
@@ -24,24 +26,66 @@ export function useChat(flow: "lost" | "found") {
     input: "",
     threadId: null,
     isLoading: false,
-    currentStep: null,
+    currentStep: STEPS.EMAIL,
     inappropriateCounter: 0,
   });
+
+  // const { showModal, hideModal } = useModal();
 
   const mapper = {
     lost: "lost_item",
     found: "found_item",
   };
 
-  const { messages, input, threadId } = chatState;
+  const { messages, input, threadId, currentStep } = chatState;
 
   useEffect(() => {
+    // const session = localStorage.getItem("chatSession");
+
     const init = async () => {
       await callChatAPI(`Initialize ${flow} item report`);
     };
 
+    // if (session) {
+    //   const parsedSession = JSON.parse(session);
+
+    //   if (parsedSession.status !== STEPS.COMPLETE) {
+    //     const { threadId, messages, flow: sessionFlow } = parsedSession;
+
+    //     if (sessionFlow === flow) {
+    //       showModal(
+    //         "Do you want to restore your previous session?",
+    //         () => {
+    //           console.log("Restoring session...");
+    //           setChatState((prev) => ({
+    //             ...prev,
+    //             threadId,
+    //             messages,
+    //             isLoading: false,
+    //           }));
+
+    //           hideModal();
+    //         },
+    //         () => {
+    //           console.log("INIT FROM CANCEL");
+    //           init();
+    //           hideModal();
+    //         }
+    //       );
+    //     }
+    //   }
+    // } else {
     init();
+    // }
   }, []);
+
+  // useEffect(() => {
+  //   console.log("REINITIALIZE SESSION");
+  //   localStorage.setItem(
+  //     "chatSession",
+  //     JSON.stringify({ flow, threadId, messages, currentStep })
+  //   );
+  // }, [flow, messages, threadId, currentStep]);
 
   useEffect(() => {
     if (messagesEndRef.current) {

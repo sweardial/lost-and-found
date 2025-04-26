@@ -48,6 +48,8 @@ export const validateUserItemDescription = async (userPrompt: string) => {
       `,
   });
 
+  console.log({ validationResponse: JSON.parse(response.output_text).status });
+
   return {
     status: JSON.parse(response.output_text).status,
   };
