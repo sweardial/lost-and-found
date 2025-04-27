@@ -146,7 +146,7 @@ export function useChat(flow: "lost" | "found") {
           ...prev,
           threadId: data.context?.threadId || prev.threadId,
           isLoading: false,
-          currentStep: data.step,
+          currentStep: data.step.toUpperCase(),
           messages: [...prev.messages, aiMessage],
         }));
 
