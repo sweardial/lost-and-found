@@ -5,7 +5,7 @@ import React from "react";
 import Button from "./Button";
 
 interface Props {
-  onComplete: () => void;
+  onComplete: (email: string) => void;
 }
 
 export default function EmailVerification(props: Props) {
@@ -13,30 +13,44 @@ export default function EmailVerification(props: Props) {
 
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const onEmailSubmit = useCallback(async () => {
-    setIsLoading(true);
-    const response = await fetch("/api/email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-      }),
-    });
+    try {
+      setIsLoading(true);
+      setError(null);
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+        }),
+      });
 
-    console.log({ response });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "Failed to send verification code"
+        );
+      }
 
-    setIsLoading(false);
-  }, [email]);
+      onComplete(email);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to send verification code"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }, [email, onComplete]);
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const isEmailValid = email.length > 0 && emailRegex.test(email);
 
   return (
-    <div className="flex flex-col  cursor-default justify-center items-center h-50 w-100 bg-white rounded-2xl">
+    <div className="flex flex-col cursor-default justify-center items-center h-50 w-100 bg-amber-100 rounded-2xl">
       <div>
         <Image
           src="/mta_logo.png"
@@ -62,6 +76,7 @@ export default function EmailVerification(props: Props) {
           isLoading={isLoading}
         />
       </div>
+      {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
     </div>
   );
 }

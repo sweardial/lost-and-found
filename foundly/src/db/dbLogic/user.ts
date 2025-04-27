@@ -6,7 +6,7 @@ export const createUser = async (email: string) => {
   });
 };
 
-export const getOrCreateUserByEmail = async (email: string) => {
+export const getOrCreateUserByEmailDB = async (email: string) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (user) {
@@ -18,10 +18,9 @@ export const getOrCreateUserByEmail = async (email: string) => {
   });
 };
 
-export const getUser = async (id: string) => {
+export const getUserByEmailDB = async (email: string) => {
   return prisma.user.findUnique({
-    where: { id },
-    include: { Item: true },
+    where: { email },
   });
 };
 
