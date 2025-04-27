@@ -1,53 +1,24 @@
 "use client";
 import Image from "next/image";
-import { useCallback, useState } from "react";
 import React from "react";
 import Button from "./Button";
+import { useVerification } from "../contexts/VerificationContext";
 
-interface Props {
-  onComplete: (email: string) => void;
-}
+export default function EmailVerification() {
+  const { sendVerificationCode, isLoading, error, setEmail } =
+    useVerification();
 
-export default function EmailVerification(props: Props) {
-  const { onComplete } = props;
+  const [emailInput, setEmailInput] = React.useState("");
 
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const onEmailSubmit = useCallback(async () => {
+  const onEmailSubmit = async () => {
     try {
-      setIsLoading(true);
-      setError(null);
-
-      const response = await fetch("/api/email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || "Failed to send verification code"
-        );
-      }
-
-      onComplete(email);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to send verification code"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [email, onComplete]);
+      await sendVerificationCode(emailInput);
+      setEmail(emailInput);
+    } catch (err) {}
+  };
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  const isEmailValid = email.length > 0 && emailRegex.test(email);
+  const isEmailValid = emailInput.length > 0 && emailRegex.test(emailInput);
 
   return (
     <div className="flex flex-col cursor-default justify-center items-center h-50 w-100 bg-amber-100 rounded-2xl">
@@ -66,7 +37,8 @@ export default function EmailVerification(props: Props) {
         <input
           className="py-2 px-2 border-2 rounded-2xl flex-grow-[2] "
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmailInput(e.target.value)}
+          aria-label="Email address"
         />
         <Button
           type="confirm"
@@ -76,7 +48,11 @@ export default function EmailVerification(props: Props) {
           isLoading={isLoading}
         />
       </div>
-      {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+      {error && (
+        <div className="text-red-500 text-sm mt-2" role="alert">
+          {error}
+        </div>
+      )}
     </div>
   );
 }

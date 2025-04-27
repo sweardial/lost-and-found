@@ -1,16 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-// import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Chat from "./components/Chat"; // Import the Chat component
 import Flow from "./components/Flow";
 
 export default function Home() {
-  // const router = useRouter();
-
   const [action, setAction] = useState<null | "login" | "lost" | "found">();
 
   const handleLogin = () => {

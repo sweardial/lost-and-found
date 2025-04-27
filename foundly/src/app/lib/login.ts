@@ -44,7 +44,7 @@ export const sendEmailConfirmationCode = async ({
     expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
   });
 
-  //   await sendEmail({ email, code });
+  await sendEmail({ email, code });
 
   return createdCode;
 };

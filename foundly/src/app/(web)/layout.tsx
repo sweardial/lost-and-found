@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ModalProvider } from "./components/ModalContext";
+import { ModalProvider } from "./contexts/ModalContext";
 import "./globals.css";
+import { VerificationProvider } from "./contexts/VerificationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ModalProvider>{children}</ModalProvider>
+        <ModalProvider>
+          <VerificationProvider>{children}</VerificationProvider>
+        </ModalProvider>
       </body>
     </html>
   );

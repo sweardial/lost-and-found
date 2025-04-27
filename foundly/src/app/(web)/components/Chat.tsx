@@ -1,11 +1,10 @@
 "use client";
 
+import { STEPS } from "@/lib/constants";
 import Image from "next/image";
 import { useChat } from "../hooks/useChat";
-import { STEPS } from "@/lib/constants";
-import Progress from "./Progress";
 import LoadingMessage from "./LoadingMessage";
-import { useModal } from "./ModalContext";
+import Progress from "./Progress";
 
 interface Props {
   flow: "lost" | "found";

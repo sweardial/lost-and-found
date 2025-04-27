@@ -1,50 +1,40 @@
 "use client";
-
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
+import {
+  MAX_RESEND_ATTEMPTS,
+  useVerification,
+} from "../contexts/VerificationContext";
 
-interface Props {
-  onComplete: () => void;
-  email: string;
-}
-
-export default function CodeVerification(props: Props) {
-  const { onComplete, email } = props;
+export default function CodeVerification() {
+  const {
+    email,
+    verifyCode,
+    resendCode,
+    isLoading,
+    error,
+    canResend,
+    resendAttempts,
+    timeUntilNextResend,
+  } = useVerification();
 
   const [code, setCode] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const onCodeSubmit = useCallback(async () => {
+  const onCodeSubmit = async () => {
     try {
-      setIsLoading(true);
-      setError(null);
+      await verifyCode(code);
+    } catch (err) {}
+  };
 
-      const response = await fetch("/api/verificationCode", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          code,
-          email,
-        }),
-      });
+  const formatTimeRemaining = (ms: number) => {
+    const seconds = Math.ceil(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Verification failed");
-      }
-
-      onComplete();
-    } catch (err) {
-      console.log({ err });
-      setError(err instanceof Error ? err.message : "Verification failed");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [code, email, onComplete]);
-
-  const isCodeValid = code.length == 6 && !isNaN(Number(code));
+  const isCodeValid = code.length === 6 && !isNaN(Number(code));
 
   return (
     <div>
@@ -70,6 +60,7 @@ export default function CodeVerification(props: Props) {
             type="text"
             onChange={(e) => setCode(e.target.value)}
             maxLength={6}
+            aria-label="Verification code"
           />
           <Button
             type="confirm"
@@ -81,16 +72,34 @@ export default function CodeVerification(props: Props) {
         </div>
       </div>
       {error && (
-        <div className="flex justify-center items-center px-4 py-2 text-red-500 font-bold text-sm">
+        <div
+          className="flex justify-center items-center px-4 py-2 text-red-500 font-bold text-sm"
+          role="alert"
+        >
           {error}
         </div>
       )}
       <div>
         <p className="text-center text-gray-500 text-sm mt-2">
           Didn&apos;t receive the code?{" "}
-          <span onClick={() => {}} className="text-mtaBlueLine cursor-pointer">
-            Resend
-          </span>
+          {canResend ? (
+            <span
+              onClick={resendCode}
+              className="text-mtaBlueLine cursor-pointer"
+              role="button"
+              tabIndex={0}
+            >
+              Resend
+            </span>
+          ) : (
+            <span className="text-gray-400">
+              {timeUntilNextResend > 0
+                ? `Resend available in ${formatTimeRemaining(
+                    timeUntilNextResend
+                  )}`
+                : `Maximum attempts reached (${resendAttempts}/${MAX_RESEND_ATTEMPTS})`}
+            </span>
+          )}
         </p>
       </div>
     </div>
