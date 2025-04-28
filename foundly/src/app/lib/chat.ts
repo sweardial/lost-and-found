@@ -4,6 +4,7 @@ import { handleRunStatus } from "@/lib/assistants/runHandler";
 import { createOpenAiThreadMessage, openai } from "@/lib/openai";
 import { Flow } from "@prisma/client";
 
+//TODO: add proper handling of abusive request and errors
 export async function processChatMessage(message: string, context: any) {
   const threadId = context?.threadId || (await openai.beta.threads.create()).id;
 
