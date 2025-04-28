@@ -4,14 +4,9 @@ const cheerio = require("cheerio");
 function parseHTMLTable(html) {
   const $ = cheerio.load(html);
 
-  console.log("First 200 chars:", html.substring(0, 200));
-  console.log("Body children count:", $("body").children().length);
-
   const rows = [];
 
-  // Instead of looking for tbody, look for tr elements directly
   const trElements = $("tr");
-  console.log(`Found ${trElements.length} <tr> elements in the document`);
 
   if (trElements.length === 0) {
     console.log("No <tr> elements found in the HTML.");
@@ -19,14 +14,12 @@ function parseHTMLTable(html) {
   }
 
   trElements.each((index, tr) => {
-    // Only log every 100th row to avoid overwhelming console
     if (index % 100 === 0) {
       console.log(`Processing row ${index + 1}`);
     }
 
     const tdElements = $(tr).find("td");
 
-    // Skip rows that don't have at least 2 td elements
     if (tdElements.length < 2) {
       return;
     }
@@ -34,7 +27,6 @@ function parseHTMLTable(html) {
     const firstTd = tdElements.eq(0);
     const secondTd = tdElements.eq(1);
 
-    // Check if td elements have content before trying to extract data
     if (firstTd.length === 0 || secondTd.length === 0) {
       return;
     }
