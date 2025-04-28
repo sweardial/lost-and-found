@@ -28,9 +28,9 @@ const VerificationContext = createContext<VerificationContextType | undefined>(
   undefined
 );
 
-export const RESEND_COOLDOWN_MS = 60000; // 1 minute cooldown
-export const MAX_RESEND_ATTEMPTS = 3; // Max 3 attempts
-export const RESEND_WINDOW_MS = 600000; //
+export const RESEND_COOLDOWN_MS = 60000;
+export const MAX_RESEND_ATTEMPTS = 3;
+export const RESEND_WINDOW_MS = 600000;
 
 export const VerificationProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

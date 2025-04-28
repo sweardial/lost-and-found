@@ -1,0 +1,3052 @@
+[
+  {
+    "station": "42nd Street–Bryant Park/Fifth Avenue",
+    "trains": [
+      "B",
+      "D",
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "42nd Street–Bryant Park/Fifth Avenue",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "42nd Street–Port Authority Bus Terminal",
+    "trains": [
+      "A",
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "Times Square–42nd Street",
+    "trains": [
+      "42nd Street Shuttle"
+    ]
+  },
+  {
+    "station": "Times Square–42nd Street",
+    "trains": [
+      "N",
+      "Q",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Times Square–42nd Street",
+    "trains": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Times Square–42nd Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Grand Central–42nd Street",
+    "trains": [
+      "42nd Street Shuttle"
+    ]
+  },
+  {
+    "station": "Grand Central–42nd Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Grand Central–42nd Street",
+    "trains": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "station": "34th Street–Herald Square",
+    "trains": [
+      "B",
+      "D",
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "34th Street–Herald Square",
+    "trains": [
+      "N",
+      "Q",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "14th Street–Union Square",
+    "trains": [
+      "N",
+      "Q",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "14th Street–Union Square",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "14th Street–Union Square",
+    "trains": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "station": "Fulton Street",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "Fulton Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Fulton Street",
+    "trains": [
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "Fulton Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "34th Street–Penn Station",
+    "trains": [
+      "A",
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "59th Street–Columbus Circle",
+    "trains": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ]
+  },
+  {
+    "station": "59th Street–Columbus Circle",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "34th Street–Penn Station",
+    "trains": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Jackson Heights–Roosevelt Avenue/74th Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Jackson Heights–Roosevelt Avenue/74th Street",
+    "trains": [
+      "E",
+      "F",
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "Flushing–Main Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Chambers Street–World Trade Center/Park Place/Cortlandt Street",
+    "trains": [
+      "A",
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "Chambers Street–World Trade Center/Park Place/Cortlandt Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Chambers Street–World Trade Center/Park Place/Cortlandt Street",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Lexington Avenue/59th Street",
+    "trains": [
+      "N",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Lexington Avenue/59th Street",
+    "trains": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "station": "47th–50th Streets–Rockefeller Center",
+    "trains": [
+      "B",
+      "D",
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "Lexington Avenue/51st Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Lexington Avenue/51st Street",
+    "trains": [
+      "E",
+      "M"
+    ]
+  },
+  {
+    "station": "14th Street/Sixth Avenue",
+    "trains": [
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "14th Street/Sixth Avenue",
+    "trains": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "14th Street/Sixth Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "14th Street/Eighth Avenue",
+    "trains": [
+      "A",
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "14th Street/Eighth Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Canal Street",
+    "trains": [
+      "N",
+      "Q",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Canal Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Canal Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "86th Street",
+    "trains": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "station": "West Fourth Street–Washington Square",
+    "trains": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "Atlantic Avenue–Barclays Center",
+    "trains": [
+      "D",
+      "N",
+      "R"
+    ]
+  },
+  {
+    "station": "Atlantic Avenue–Barclays Center",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "Atlantic Avenue–Barclays Center",
+    "trains": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "Broadway–Lafayette Street/Bleecker Street",
+    "trains": [
+      "B",
+      "D",
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "Broadway–Lafayette Street/Bleecker Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "72nd Street",
+    "trains": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Bedford Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "96th Street",
+    "trains": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "57th Street–Seventh Avenue",
+    "trains": [
+      "N",
+      "Q",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Jay Street–MetroTech",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Jay Street–MetroTech",
+    "trains": [
+      "A",
+      "C",
+      "F"
+    ]
+  },
+  {
+    "station": "Delancey Street/Essex Street",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Delancey Street/Essex Street",
+    "trains": [
+      "J/Z",
+      "M"
+    ]
+  },
+  {
+    "station": "Junction Boulevard",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "72nd Street",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "103rd Street–Corona Plaza",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "77th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Borough Hall/Court Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Borough Hall/Court Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Borough Hall/Court Street",
+    "trains": [
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "South Ferry/Whitehall Street",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "South Ferry/Whitehall Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Sutphin Boulevard–Archer Avenue–JFK Airport",
+    "trains": [
+      "E",
+      "J/Z"
+    ]
+  },
+  {
+    "station": "50th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Brooklyn Bridge–City Hall/Chambers Street",
+    "trains": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "station": "Brooklyn Bridge–City Hall/Chambers Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Grand Street",
+    "trains": [
+      "B",
+      "D"
+    ]
+  },
+  {
+    "station": "First Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Jamaica Center–Parsons/Archer",
+    "trains": [
+      "E",
+      "J/Z"
+    ]
+  },
+  {
+    "station": "33rd Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "49th Street",
+    "trains": [
+      "N",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "125th Street",
+    "trains": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ]
+  },
+  {
+    "station": "Forest Hills–71st Avenue",
+    "trains": [
+      "E",
+      "F",
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "34th Street–Hudson Yards",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "86th Street",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "23rd Street",
+    "trains": [
+      "F",
+      "M"
+    ]
+  },
+  {
+    "station": "23rd Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Court Square–23rd Street",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Court Square–23rd Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Court Square–23rd Street",
+    "trains": [
+      "E",
+      "M"
+    ]
+  },
+  {
+    "station": "161st Street–Yankee Stadium",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "161st Street–Yankee Stadium",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "68th Street–Hunter College",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "168th Street",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "168th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Crown Heights–Utica Avenue",
+    "trains": [
+      "3",
+      "4"
+    ]
+  },
+  {
+    "station": "Kew Gardens–Union Turnpike",
+    "trains": [
+      "E",
+      "F"
+    ]
+  },
+  {
+    "station": "Myrtle–Wyckoff Avenues",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Myrtle–Wyckoff Avenues",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "125th Street",
+    "trains": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "station": "50th Street",
+    "trains": [
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "66th Street–Lincoln Center",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Fifth Avenue/53rd Street",
+    "trains": [
+      "E",
+      "M"
+    ]
+  },
+  {
+    "station": "145th Street",
+    "trains": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ]
+  },
+  {
+    "station": "Bowling Green",
+    "trains": [
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "90th Street–Elmhurst Avenue",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "28th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "23rd Street",
+    "trains": [
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "DeKalb Avenue",
+    "trains": [
+      "B",
+      "Q",
+      "R"
+    ]
+  },
+  {
+    "station": "23rd Street",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Kings Highway",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "Woodhaven Boulevard",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "61st Street–Woodside",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Second Avenue",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "86th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Canal Street",
+    "trains": [
+      "A",
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "Jamaica–179th Street",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Metropolitan Avenue/Lorimer Street",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Metropolitan Avenue/Lorimer Street",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Grand Avenue–Newtown",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "Seventh Avenue",
+    "trains": [
+      "B",
+      "D",
+      "E"
+    ]
+  },
+  {
+    "station": "96th Street",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Chambers Street",
+    "trains": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Eighth Street–New York University",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Nostrand Avenue",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "96th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Lexington Avenue–63rd Street",
+    "trains": [
+      "F",
+      "Q"
+    ]
+  },
+  {
+    "station": "Wall Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "East Broadway",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Astor Place",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Queens Plaza",
+    "trains": [
+      "E",
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "Vernon Boulevard–Jackson Avenue",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Flatbush Avenue–Brooklyn College",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Queensboro Plaza",
+    "trains": [
+      "7",
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "81st Street–Museum of Natural History",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "79th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Fifth Avenue–59th Street",
+    "trains": [
+      "N",
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "36th Street",
+    "trains": [
+      "D",
+      "N",
+      "R"
+    ]
+  },
+  {
+    "station": "116th Street–Columbia University",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Wall Street",
+    "trains": [
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "WTC Cortlandt",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "York Street",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Third Avenue–149th Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Franklin Avenue/Botanic Garden",
+    "trains": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "Franklin Avenue/Botanic Garden",
+    "trains": [
+      "Franklin Avenue Shuttle"
+    ]
+  },
+  {
+    "station": "Parkchester",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Astoria–Ditmars Boulevard",
+    "trains": [
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "Coney Island–Stillwell Avenue",
+    "trains": [
+      "D",
+      "F",
+      "N",
+      "Q"
+    ]
+  },
+  {
+    "station": "Church Avenue",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "23rd Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Prince Street",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "28th Street",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "63rd Drive–Rego Park",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "30th Avenue",
+    "trains": [
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "Spring Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Spring Street",
+    "trains": [
+      "C",
+      "E"
+    ]
+  },
+  {
+    "station": "Utica Avenue",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "46th Street–Bliss Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Cathedral Parkway–110th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "103rd Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Marcy Avenue",
+    "trains": [
+      "J/Z",
+      "M"
+    ]
+  },
+  {
+    "station": "59th Street",
+    "trains": [
+      "N",
+      "R"
+    ]
+  },
+  {
+    "station": "Fourth Avenue/Ninth Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Fourth Avenue/Ninth Street",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "Sheepshead Bay",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "Christopher Street–Stonewall",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Hoyt–Schermerhorn Streets",
+    "trains": [
+      "A",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "station": "DeKalb Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "116th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Broadway",
+    "trains": [
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "Houston Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "137th Street–City College",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Steinway Street",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "82nd Street–Jackson Heights",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "28th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Bergen Street",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "Seventh Avenue",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "Elmhurst Avenue",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "125th Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Myrtle Avenue",
+    "trains": [
+      "J/Z",
+      "M"
+    ]
+  },
+  {
+    "station": "86th Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Brighton Beach",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "Carroll Street",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "103rd Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "57th Street",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Eighth Avenue",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "86th Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "Greenpoint Avenue",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "181st Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Astoria Boulevard",
+    "trains": [
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "72nd Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "Nassau Avenue",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "157th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Fordham Road",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "175th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "High Street",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "135th Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "40th Street–Lowery Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Newkirk Plaza",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "Graham Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Seventh Avenue",
+    "trains": [
+      "B",
+      "Q"
+    ]
+  },
+  {
+    "station": "Prospect Park",
+    "trains": [
+      "B",
+      "Q",
+      "Franklin Avenue Shuttle"
+    ]
+  },
+  {
+    "station": "Euclid Avenue",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "Hunts Point Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Nevins Street",
+    "trains": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "96th Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "145th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "111th Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "110th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "149th Street–Grand Concourse",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "149th Street–Grand Concourse",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Jefferson Street",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Church Avenue",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "53rd Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "116th Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "125th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Bedford–Nostrand Avenues",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Kingsbridge Road",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Church Avenue",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "167th Street",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "231st Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Burnside Avenue",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "45th Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Fordham Road",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Mets–Willets Point",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "18th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Bay Ridge Avenue",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Morgan Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "181st Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Third Avenue–138th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Mosholu Parkway",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "33rd Street–Rawson Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Bay Parkway",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Halsey Street",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "East 180th Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Roosevelt Island",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Pelham Parkway",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "Cathedral Parkway–110th Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "Montrose Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "191st Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Hoyt Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "46th Street",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "67th Avenue",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "Grand Army Plaza",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Broadway Junction",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Broadway Junction",
+    "trains": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "station": "Broadway Junction",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Union Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Inwood–207th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Winthrop Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "169th Street",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Flushing Avenue",
+    "trains": [
+      "J/Z",
+      "M"
+    ]
+  },
+  {
+    "station": "Rector Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Central Park North–110th Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Bay Parkway",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "Avenue U",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "Clinton–Washington Avenues",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Parsons Boulevard",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "21st Street–Queensbridge",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Third Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Clark Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Fulton Street",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Fort Hamilton Parkway",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "Rockaway Boulevard",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Dyckman Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Grand Street",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "36th Avenue",
+    "trains": [
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "116th Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "Gates Avenue",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "170th Street",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Kingston–Throop Avenues",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Newkirk Avenue–Little Haiti",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "167th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Van Cortlandt Park–242nd Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "52nd Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "Northern Boulevard",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "69th Street",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "15th Street–Prospect Park",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "207th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Parkside Avenue",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Classon Avenue",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Fort Hamilton Parkway",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "Simpson Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "18th Avenue",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Franklin Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "79th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Dyckman Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Prospect Avenue",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Woodlawn",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Cortelyou Road",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Ozone Park–Lefferts Boulevard",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Sutter Avenue–Rutland Road",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Myrtle–Willoughby Avenues",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Clinton–Washington Avenues",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Ninth Avenue",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Halsey Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Lafayette Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Prospect Avenue",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Kings Highway",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "Sterling Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Morrison Avenue–Soundview",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Gun Hill Road",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "Kosciuszko Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Broad Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Elder Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Avenue M",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Franklin Avenue",
+    "trains": [
+      "Franklin Avenue Shuttle"
+    ]
+  },
+  {
+    "station": "Franklin Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "62nd Street/New Utrecht Avenue",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "62nd Street/New Utrecht Avenue",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Norwood–205th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Fresh Pond Road",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "77th Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Tremont Avenue",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "18th Avenue",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "183rd Street",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Bedford Park Boulevard",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Pelham Bay Park",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Bay Ridge–95th Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Grant Avenue",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Avenue J",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Bedford Park Boulevard–Lehman College",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Canal Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Kingsbridge Road",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "City Hall",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Rector Street",
+    "trains": [
+      "R",
+      "W"
+    ]
+  },
+  {
+    "station": "Eastern Parkway–Brooklyn Museum",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "20th Avenue",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "174th Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Broadway",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Brook Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "135th Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "Rockaway Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Ralph Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "71st Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Marble Hill–225th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "New Lots Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Castle Hill Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Briarwood",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "176th Street",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Hunters Point Avenue",
+    "trains": [
+      "7"
+    ]
+  },
+  {
+    "station": "103rd Street",
+    "trains": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "station": "Kingston Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Jamaica–Van Wyck",
+    "trains": [
+      "E"
+    ]
+  },
+  {
+    "station": "170th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "West Farms Square–East Tremont Avenue",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "Bergen Street",
+    "trains": [
+      "2",
+      "3"
+    ]
+  },
+  {
+    "station": "Mount Eden Avenue",
+    "trains": [
+      "4"
+    ]
+  },
+  {
+    "station": "Smith–Ninth Streets",
+    "trains": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "station": "East 149th Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "238th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Neck Road",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Wilson Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "190th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Beverly Road",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "25th Avenue",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Saratoga Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "20th Avenue",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "Gun Hill Road",
+    "trains": [
+      "5"
+    ]
+  },
+  {
+    "station": "Forest Avenue",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "Jackson Avenue",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "80th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Lorimer Street",
+    "trains": [
+      "J/Z",
+      "M"
+    ]
+  },
+  {
+    "station": "Bowery",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Sutphin Boulevard",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Avenue U",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Allerton Avenue",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "Fort Hamilton Parkway",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Pennsylvania Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Knickerbocker Avenue",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "Canarsie–Rockaway Parkway",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Far Rockaway–Mott Avenue",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Ditmas Avenue",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "233rd Street",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "163rd Street–Amsterdam Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Rockaway Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "85th Street–Forest Parkway",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Howard Beach–JFK Airport",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "182nd–183rd Streets",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Freeman Street",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "25th Street",
+    "trains": [
+      "R"
+    ]
+  },
+  {
+    "station": "Central Avenue",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "St. Lawrence Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Nostrand Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "39th Avenue",
+    "trains": [
+      "N",
+      "W"
+    ]
+  },
+  {
+    "station": "Middle Village–Metropolitan Avenue",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "Beverley Road",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "Wakefield–241st Street",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "138th Street–Grand Concourse",
+    "trains": [
+      "4",
+      "5"
+    ]
+  },
+  {
+    "station": "174th–175th Streets",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Westchester Square–East Tremont Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "36th Street",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "Buhre Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Crescent Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "50th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Ocean Parkway",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "President Street–Medgar Evers College",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "65th Street",
+    "trains": [
+      "M",
+      "R"
+    ]
+  },
+  {
+    "station": "Flushing Avenue",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Eastchester–Dyre Avenue",
+    "trains": [
+      "5"
+    ]
+  },
+  {
+    "station": "18th Avenue",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Kings Highway",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "New Lots Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Longwood Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "75th Avenue",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Harlem–148th Street",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Avenue H",
+    "trains": [
+      "Q"
+    ]
+  },
+  {
+    "station": "West Eighth Street–New York Aquarium",
+    "trains": [
+      "F",
+      "Q"
+    ]
+  },
+  {
+    "station": "Chauncey Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Seneca Avenue",
+    "trains": [
+      "M"
+    ]
+  },
+  {
+    "station": "Hewes Street",
+    "trains": [
+      "J/Z",
+      "M"
+    ]
+  },
+  {
+    "station": "East 105th Street",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Avenue N",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "104th Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Livonia Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "225th Street",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "155th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "Nereid Avenue",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "Intervale Avenue",
+    "trains": [
+      "2",
+      "5"
+    ]
+  },
+  {
+    "station": "88th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Bay 50th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "145th Street",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Pelham Parkway",
+    "trains": [
+      "5"
+    ]
+  },
+  {
+    "station": "Shepherd Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "86th Street",
+    "trains": [
+      "N"
+    ]
+  },
+  {
+    "station": "Woodhaven Boulevard",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Bushwick Avenue–Aberdeen Street",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Baychester Avenue",
+    "trains": [
+      "5"
+    ]
+  },
+  {
+    "station": "155th Street",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Avenue P",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Burke Avenue",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "Van Siclen Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Morris Park",
+    "trains": [
+      "5"
+    ]
+  },
+  {
+    "station": "Van Siclen Avenue",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Zerega Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Cypress Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Liberty Avenue",
+    "trains": [
+      "C"
+    ]
+  },
+  {
+    "station": "Van Siclen Avenue",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "219th Street",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "Junius Street",
+    "trains": [
+      "3"
+    ]
+  },
+  {
+    "station": "Avenue X",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Sutter Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "121st Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Beach 67th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "111th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "215th Street",
+    "trains": [
+      "1"
+    ]
+  },
+  {
+    "station": "Norwood Avenue",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Bronx Park East",
+    "trains": [
+      "2"
+    ]
+  },
+  {
+    "station": "111th Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "21st Street",
+    "trains": [
+      "G"
+    ]
+  },
+  {
+    "station": "Cleveland Street",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "55th Street",
+    "trains": [
+      "D"
+    ]
+  },
+  {
+    "station": "75th Street–Elderts Lane",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Middletown Road",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Avenue U",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Whitlock Avenue",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Avenue I",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Alabama Avenue",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "104th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Beach 60th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Atlantic Avenue",
+    "trains": [
+      "L"
+    ]
+  },
+  {
+    "station": "Park Place",
+    "trains": [
+      "Franklin Avenue Shuttle"
+    ]
+  },
+  {
+    "station": "Neptune Avenue",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "Beach 25th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Cypress Hills",
+    "trains": [
+      "J/Z"
+    ]
+  },
+  {
+    "station": "Bay Parkway",
+    "trains": [
+      "F"
+    ]
+  },
+  {
+    "station": "East 143rd Street–St. Mary's Street",
+    "trains": [
+      "6"
+    ]
+  },
+  {
+    "station": "Aqueduct Racetrack",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Beach 90th Street",
+    "trains": [
+      "Rockaway Park Shuttle"
+    ]
+  },
+  {
+    "station": "Beach 36th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Aqueduct–North Conduit Avenue",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Beach 44th Street",
+    "trains": [
+      "A"
+    ]
+  },
+  {
+    "station": "Rockaway Park–Beach 116th Street",
+    "trains": [
+      "Rockaway Park Shuttle"
+    ]
+  },
+  {
+    "station": "Beach 98th Street",
+    "trains": [
+      "Rockaway Park Shuttle"
+    ]
+  },
+  {
+    "station": "Beach 105th Street",
+    "trains": [
+      "Rockaway Park Shuttle"
+    ]
+  },
+  {
+    "station": "Broad Channel",
+    "trains": [
+      "A",
+      "Rockaway Park Shuttle"
+    ]
+  }
+]

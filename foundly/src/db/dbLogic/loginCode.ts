@@ -23,6 +23,7 @@ export const getValidLoginCodeByUserIdDB = async ({
   prisma.loginCodes.findFirst({
     where: {
       userId,
+      isUsed: false,
       expiresAt: {
         gte: new Date(),
       },

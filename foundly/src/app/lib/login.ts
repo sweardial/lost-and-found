@@ -25,7 +25,7 @@ export const sendEmailConfirmationCode = async ({
   const existingCode = await getValidLoginCodeByUserIdDB({ userId: user.id });
 
   if (existingCode) {
-    if (existingCode.attempt >= 3) {
+    if (existingCode.attempt > 2) {
       throw new LimitError("Maximum attempts reached. Please try again later.");
     }
 
@@ -61,7 +61,7 @@ export const verifyEmailConfirmationCode = async ({
   const user = await getUserByEmailDB(email);
 
   if (!user) {
-    throw new Error("User not found");
+    throw new NotFoundError("User not found");
   }
 
   const loginCode = await getValidLoginCodeByUserIdDB({ userId: user.id });

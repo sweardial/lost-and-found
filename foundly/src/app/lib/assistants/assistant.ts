@@ -16,7 +16,6 @@ export const getOrCreateAssistant = async ({ flow }: { flow: Flow }) => {
     tools: ORION_TOOLS,
     instructions: ORION_PROMPT,
     model: ORION_MODEL,
-    
   });
 
   await createAssistantDB({
