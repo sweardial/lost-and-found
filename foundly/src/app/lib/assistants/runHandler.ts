@@ -1,4 +1,5 @@
 import {
+  validateUserItemDate,
   validateUserItemDescription,
   validateUserItemLocation,
 } from "@/lib/assistants/validations";
@@ -13,7 +14,9 @@ import { Run } from "openai/resources/beta/threads/runs/runs.mjs";
 const mapper = {
   validateUserItemDescription: validateUserItemDescription,
   validateUserItemLocation: validateUserItemLocation,
+  validateUserItemDate: validateUserItemDate,
 };
+
 export async function handleRunStatus(
   run: Run,
   threadId: string

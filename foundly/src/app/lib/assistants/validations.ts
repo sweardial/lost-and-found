@@ -4,12 +4,52 @@ export const validateUserItemDescription = async (userPrompt: string) => {
   const response = await openai.responses.create({
     model: "gpt-4.1-nano",
     input: [{ role: "user", content: userPrompt }],
-    instructions: `Your task is to validate user prompt.
+    instructions: `
+      Your task is to validate a user's description of a lost or found physical item in the NYC subway system.
 
-      You should identify if user prompt is a description of a physical item that can be lost/found in NYC subway system.
-      The description should be sufficiently detailed and realistic.
+      **RULES YOU MUST FOLLOW:**
+      - Focus only on physical, realistic items that can reasonably be lost or found.
+      - Do not accept imaginary, abstract, or unrealistic descriptions.
+      - Do not guess missing item details — evaluate strictly based on user input.
 
-      Good examples:
+      **TASKS:**
+      1. Assess whether the user's input describes:
+          - A specific, realistic, physical item (valid)
+          - A real item but described too vaguely (vague)
+          - Something unrealistic, abstract, or impossible (unrealistic)
+
+      2. If vague:
+          - Suggest a clarifying question asking for missing details (e.g., brand, color, size, features).
+
+      3. If unrealistic:
+          - Explain briefly why the input is unrealistic.
+
+      **OUTPUT:**
+      You MUST respond in the following JSON format:
+      {
+        "status": "valid" | "vague" | "unrealistic",
+        "feedback": "short explanation of why the input was rated this way",
+        "suggestedQuestion": "question to clarify details about the items" (only if status is vague. Questions should be related to the item type)
+      }
+
+      **EXAMPLES:**
+
+      User Input: "black leather Coach wallet with golden zipper and red stripe detail"
+      - status: "valid"
+      - feedback: "Detailed description of a realistic item."
+
+      User Input: "red scarf"
+      - status: "vague"
+      - feedback: "Description too vague to identify the item precisely."
+      - suggestedQuestion: "Can you describe any patterns, brand names, or additional details about the scarf?"
+
+      User Input: "time machine"
+      - status: "unrealistic"
+      - feedback: "A time machine is not a realistic physical item one can lose in the NYC subway."
+
+      SOME MORE EXAMPLES:
+      
+      Good:
       - "black leather Coach wallet with golden zipper and red stripe detail on the side"
       - "dark blue JanSport backpack with yellow zipper pulls and reflective strip across front pocket"
       - "collapsible black and red Totes umbrella with automatic opening button and rubber grip handle"
@@ -19,7 +59,7 @@ export const validateUserItemDescription = async (userPrompt: string) => {
       - "Ray-Ban rectangular glasses with black acetate frames and silver temple details"
       - "red and white cashmere scarf from Uniqlo with traditional snowflake pattern" 
 
-      Bad examples:
+      Bad:
       - "pet dragon."
       - "red scarf."
       - "big blue backpack"
@@ -39,13 +79,7 @@ export const validateUserItemDescription = async (userPrompt: string) => {
       - "money."
       - "scarf"
 
-      You should respond with a JSON object containing the following field:
-      - status: "valid" | "vague" | "unrealistic"
-
-      valid - the description is detailed and realistic
-      vague - the description is too vague or general
-      unrealistic - the description is unrealistic or not a physical item
-      `,
+      Respond strictly using only the provided structure.`,
   });
 
   console.log({ validationResponse: JSON.parse(response.output_text).status });
@@ -59,43 +93,74 @@ export const validateUserItemLocation = async (userPrompt: string) => {
   const response = await openai.responses.create({
     model: "gpt-4.1-nano",
     input: [{ role: "user", content: userPrompt }],
-    instructions: `Your task is to validate a user's description of where they lost an item in the NYC subway system.
+    tools: [
+      {
+        type: "file_search",
+        vector_store_ids: [process.env.NYC_SUBWAY_GRID_VECTOR_STORE_ID || ""],
+      },
+    ],
+    instructions: `
+    You are responsible for validating a user's description of where they lost an item within the NYC subway system.
 
-    NYC subway locations can be described in various ways, and travelers may have complex paths. Evaluate if the location description is realistic, specific enough to be useful, or too vague.
+    **RULES YOU MUST FOLLOW:**
+    - You MUST ONLY use information retrieved from the vector database. Do not guess missing information.
+    - You MUST match any station names, train lines, and routes directly from the database.
+    - If a station or line is not found in the database, treat it as invalid or vague.
+    - Never assume or invent stations, lines, or routes.
 
-    Location descriptions should include at least one of:
-    - Specific subway line (e.g., "6 train", "A line", "F train")
-    - Specific station name (e.g., "Times Square", "Union Square", "Grand Central")
-    - Direction/destination (e.g., "heading uptown", "going to Brooklyn", "Queens-bound")
-    
-    Good examples:
-    - "I left it on the F train heading to Queens around 34th Street station"
-    - "On the 4 train between Grand Central and Union Square"
-    - "Inside the 42nd Street-Bryant Park station near the B/D platform"
-    - "On a downtown 6 train somewhere between 77th and 14th street"
-    - "At the turnstiles in the 59th Street/Columbus Circle station"
-    - "L train heading to Brooklyn after I transferred from the 6"
-    - "In the 23rd Street station on the uptown platform for the R/W trains"
-    - "Somewhere along my commute from Brooklyn to Midtown, I took the G to the E"
+    **TASKS:**
+    1. Search the database based on the user's input.
+    2. Extract and list:
+        - Subway lines mentioned
+        - Stations mentioned
+        - If possible, describe the type of location:
+          - "station" (if stationary at a known station)
+          - "train_trip" (if between stations or moving)
+          - "transfer_area" (if describing a transfer between lines)
+          - "unknown" (if user is unsure)
 
-    Bad examples:
-    - "In the subway" (too vague)
-    - "On a train" (too vague)
-    - "Somewhere in Manhattan" (too vague)
-    - "On Mars" (unrealistic)
-    - "In the secret subway station under Central Park" (unrealistic)
-    - "JFK Airport" (not in subway system)
-    - "Taxi" (not subway system)
-    - "PATH train to New Jersey" (not NYC subway)
-    
-    You should respond with a JSON object containing the following fields:
-    - status: "valid" | "vague" | "unrealistic"
-    - feedback: string (brief explanation about why the location is valid, vague, or unrealistic)
-    - suggestedQuestion: string (if status is "vague", provide a follow-up question to help the user provide better location details)
-    
-    valid - the location is specific enough and realistic within NYC subway system
-    vague - the location lacks specific details needed for effective search
-    unrealistic - the location is not within NYC subway system or is fictional`,
+    3. Assess location realism:
+        - "valid" if matching known subway entities and description is sufficient enough.
+        - "vague" if general areas (like "Brooklyn") are given without enough detail.
+        - "unrealistic" if not in NYC subway (e.g., "on Mars", "PATH train").
+
+    4. Provide:
+        - A short feedback explanation.
+        - If vague, suggest specific clarifying questions to help the user provide more useful detail. 
+
+    **OUTPUT:**
+    You MUST respond in the following JSON format:
+    {
+      "status": "valid" | "vague" | "unrealistic",
+      "location_type": "station" | "train_trip" | "transfer_area" | "unknown",
+      "parsed_entities": {
+        "lines": ["..."], 
+        "stations": ["..."]
+      },
+      "feedback": "short explanation",
+      "suggestedQuestion": "question to clarify" (only if status is vague)
+    }
+
+    **EXAMPLES:**
+
+    User Input: "Lost it on the F train between Delancey and West 4th Street"
+    - status: "valid"
+    - location_type: "train_trip"
+    - parsed_entities: { "lines": ["F"], "stations": ["Delancey Street/Essex Street", "West Fourth Street–Washington Square"] }
+
+    User Input: "Lost somewhere around Brooklyn"
+    - status: "vague"
+    - location_type: "unknown"
+    - parsed_entities: { "lines": [], "stations": [] }
+    - suggestedQuestion: "Can you recall which train line you were riding or any station names you passed?"
+
+    User Input: "Lost it at Hogwarts Station"
+    - status: "unrealistic"
+    - location_type: "unknown"
+    - parsed_entities: { "lines": [], "stations": [] }
+
+    Be strict. Do not infer beyond retrieved NYC subway data.
+`,
   });
 
   const parsedResponse = JSON.parse(response.output_text);
@@ -103,8 +168,10 @@ export const validateUserItemLocation = async (userPrompt: string) => {
 
   return {
     status: parsedResponse.status,
+    location_type: parsedResponse.location_type,
+    parsed_entities: parsedResponse.parsed_entities,
     feedback: parsedResponse.feedback,
-    suggestedQuestion: parsedResponse.suggestedQuestion,
+    suggestedQuestion: parsedResponse.suggestedQuestion || null,
   };
 };
 

@@ -84,7 +84,7 @@ export default function Chat(props: Props) {
               onChange={(e) => updateInput(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Type a message..."
-              maxLength={100}
+              maxLength={300}
               className="flex-1 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-mtaGreenLine placeholder:text-gray-400 text-gray-800"
               rows={1}
               disabled={currentStep === STEPS.COMPLETE || isLoading}
