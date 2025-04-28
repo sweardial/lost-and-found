@@ -1,21 +1,24 @@
+import { sign } from "jsonwebtoken";
 import {
   createLoginCodeDB,
   getOrCreateUserByEmailDB,
   getUserByEmailDB,
+  getUserByIdDB,
   getValidLoginCodeByUserIdDB,
   updateLoginCodeByIdDB,
 } from "../../db";
 import { LimitError, NotFoundError, ValidationError } from "./errors";
 import { sendEmail } from "./sendEmail";
-import { generateSixDigitCode } from "./utils";
+import { generateRandomSessionId, generateSixDigitCode } from "./utils";
+import { JWT_SECRET } from "./envs";
 
-interface SendEmailConfirmationCodeParams {
+interface HandleEmailConfirmationCodeParams {
   email: string;
 }
 
-export const sendEmailConfirmationCode = async ({
+export const handleEmailLoginCode = async ({
   email,
-}: SendEmailConfirmationCodeParams) => {
+}: HandleEmailConfirmationCodeParams) => {
   const user = await getOrCreateUserByEmailDB(email);
 
   if (!user) {
@@ -37,34 +40,36 @@ export const sendEmailConfirmationCode = async ({
 
   const code = generateSixDigitCode();
 
-  const createdCode = await createLoginCodeDB({
+  console.log({ code });
+
+  await createLoginCodeDB({
     code,
     userId: user.id,
     ...(existingCode ? { attempt: existingCode.attempt + 1 } : {}),
     expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
   });
 
-  await sendEmail({ email, code });
+  // await sendEmail({ email, code });
 
-  return createdCode;
+  return user.id;
 };
 
-interface VerifyEmailConfirmationCodeParams {
-  email: string;
+interface HandleEmailConfirmationCode {
+  userId: string;
   code: string;
 }
 
-export const verifyEmailConfirmationCode = async ({
-  email,
+export const handleEmailConfirmationCode = async ({
+  userId,
   code,
-}: VerifyEmailConfirmationCodeParams) => {
-  const user = await getUserByEmailDB(email);
+}: HandleEmailConfirmationCode) => {
+  const user = await getUserByIdDB(userId);
 
   if (!user) {
     throw new NotFoundError("User not found");
   }
 
-  const loginCode = await getValidLoginCodeByUserIdDB({ userId: user.id });
+  const loginCode = await getValidLoginCodeByUserIdDB({ userId });
 
   if (!loginCode) {
     throw new NotFoundError(
@@ -80,4 +85,17 @@ export const verifyEmailConfirmationCode = async ({
     codeId: loginCode.id,
     data: { expiresAt: new Date(), isUsed: true },
   });
+
+  const sessionId = generateRandomSessionId();
+  const expiresIn = 10 * 60; // 10 minutes
+
+  const payload = {
+    sessionId,
+    userId: user.id,
+    exp: Math.floor(Date.now() / 1000) + expiresIn,
+  };
+
+  const token = sign(payload, JWT_SECRET);
+
+  return token;
 };

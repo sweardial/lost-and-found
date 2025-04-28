@@ -2,22 +2,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Button from "./Button";
-import {
-  MAX_RESEND_ATTEMPTS,
-  useVerification,
-} from "../contexts/VerificationContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function CodeVerification() {
-  const {
-    email,
-    verifyCode,
-    resendCode,
-    isLoading,
-    error,
-    canResend,
-    resendAttempts,
-    timeUntilNextResend,
-  } = useVerification();
+  const { email, verifyCode, isLoading, error } = useAuth();
 
   const [code, setCode] = useState("");
 
@@ -27,12 +15,12 @@ export default function CodeVerification() {
     } catch (err) {}
   };
 
-  const formatTimeRemaining = (ms: number) => {
-    const seconds = Math.ceil(ms / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
-  };
+  // const formatTimeRemaining = (ms: number) => {
+  //   const seconds = Math.ceil(ms / 1000);
+  //   const minutes = Math.floor(seconds / 60);
+  //   const remainingSeconds = seconds % 60;
+  //   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  // };
 
   const isCodeValid = code.length === 6 && !isNaN(Number(code));
 
@@ -82,7 +70,7 @@ export default function CodeVerification() {
       <div>
         <p className="text-center text-gray-500 text-sm mt-2">
           Didn&apos;t receive the code?{" "}
-          {canResend ? (
+          {/* {canResend ? (
             <span
               onClick={resendCode}
               className="text-mtaBlueLine cursor-pointer"
@@ -99,7 +87,7 @@ export default function CodeVerification() {
                   )}`
                 : `Maximum attempts reached (${resendAttempts}/${MAX_RESEND_ATTEMPTS})`}
             </span>
-          )}
+          )} */}
         </p>
       </div>
     </div>

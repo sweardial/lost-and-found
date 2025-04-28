@@ -2,11 +2,10 @@
 import Image from "next/image";
 import React from "react";
 import Button from "./Button";
-import { useVerification } from "../contexts/VerificationContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function EmailVerification() {
-  const { sendVerificationCode, isLoading, error, setEmail } =
-    useVerification();
+  const { sendVerificationCode, isLoading, error, setEmail } = useAuth();
 
   const [emailInput, setEmailInput] = React.useState("");
 

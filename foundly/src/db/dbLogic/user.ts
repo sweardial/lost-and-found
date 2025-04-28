@@ -24,6 +24,9 @@ export const getUserByEmailDB = async (email: string) => {
   });
 };
 
+export const getUserByIdDB = async (id: string) =>
+  prisma.user.findUnique({ where: { id } });
+
 export const updateUser = async (id: string, email: string) => {
   return prisma.user.update({
     where: { id },

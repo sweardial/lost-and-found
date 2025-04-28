@@ -1,9 +1,10 @@
 import AWS from "aws-sdk";
+import { AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY } from "./envs";
 
 const AWS_SES = new AWS.SES({
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: AWS_REGION,
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY,
 });
 
 interface SendEmailParams {
