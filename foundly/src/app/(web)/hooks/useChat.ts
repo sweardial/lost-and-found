@@ -28,62 +28,20 @@ export function useChat(flow: "lost" | "found") {
     inappropriateCounter: 0,
   });
 
-  // const { showModal, hideModal } = useModal();
-
   const mapper = {
     lost: "lost_item",
     found: "found_item",
   };
 
-  const { messages, input, threadId, currentStep } = chatState;
+  const { messages, input, threadId } = chatState;
 
   useEffect(() => {
-    // const session = localStorage.getItem("chatSession");
-
     const init = async () => {
       await callChatAPI(`Initialize ${flow} item report`);
     };
 
-    // if (session) {
-    //   const parsedSession = JSON.parse(session);
-
-    //   if (parsedSession.status !== STEPS.COMPLETE) {
-    //     const { threadId, messages, flow: sessionFlow } = parsedSession;
-
-    //     if (sessionFlow === flow) {
-    //       showModal(
-    //         "Do you want to restore your previous session?",
-    //         () => {
-    //           console.log("Restoring session...");
-    //           setChatState((prev) => ({
-    //             ...prev,
-    //             threadId,
-    //             messages,
-    //             isLoading: false,
-    //           }));
-
-    //           hideModal();
-    //         },
-    //         () => {
-    //           console.log("INIT FROM CANCEL");
-    //           init();
-    //           hideModal();
-    //         }
-    //       );
-    //     }
-    //   }
-    // } else {
     init();
-    // }
   }, []);
-
-  // useEffect(() => {
-  //   console.log("REINITIALIZE SESSION");
-  //   localStorage.setItem(
-  //     "chatSession",
-  //     JSON.stringify({ flow, threadId, messages, currentStep })
-  //   );
-  // }, [flow, messages, threadId, currentStep]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
